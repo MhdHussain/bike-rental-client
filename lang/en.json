@@ -1,0 +1,7 @@
+{
+  "details": "Details",
+  "book_now": "Book Now",
+  "connection_error": "Connection error , Please make sure you are connected to the internet !",
+  "location_service_disabled": "Please enable location services to continue",
+  "server_error": "A server error occurred, Please try again "
+}
