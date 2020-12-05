@@ -29,8 +29,11 @@ class BikeRepository implements IBikeRepository {
 
     prefs = await SharedPreferences.getInstance();
 
-    dio.options.headers["authorization"] =
+    if(prefs.getString(Constants.ACCESS_TOKEN_KEY) != null){
+      dio.options.headers["authorization"] =
         "Bearer " + prefs.getString(Constants.ACCESS_TOKEN_KEY);
+    }
+    
   }
 
   @override
@@ -47,25 +50,25 @@ class BikeRepository implements IBikeRepository {
     bool isLocationServiceEnabled = await geolocator.isLocationServiceEnabled();
     if (!isLocationServiceEnabled) {
       isLocationServiceEnabled = await location.requestService();
-      
-      if(!isLocationServiceEnabled){
+
+      if (!isLocationServiceEnabled) {
         return left(Failure.locationServiceDisabled(
-          message: 'location_service_disabled'));
+            message: 'location_service_disabled'));
       }
     }
 
-     Position position = await geolocator.getCurrentPosition(
+    Position position = await geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
 
     //get current location
     double currentLatitude = position.latitude;
     double currentLongitude = position.longitude;
 
-    try{
-
-      Response<List<dynamic>> response = await dio.post(Constants.API_URL + 'client/nearby' , data: {
-        'latitude' : currentLatitude,
-        'longitude' : currentLongitude,
+    try {
+      Response<List<dynamic>> response =
+          await dio.post(Constants.API_URL + 'client/nearby', data: {
+        'latitude': currentLatitude,
+        'longitude': currentLongitude,
       });
 
       final result = response.data;
@@ -82,8 +85,8 @@ class BikeRepository implements IBikeRepository {
       }).toList();
 
       return right(output);
-
-    } on DioError catch (error){
+    } on DioError catch (error) {
+      print(error);
       return left(Failure.requestTimeOut(message: "server_error"));
     }
   }

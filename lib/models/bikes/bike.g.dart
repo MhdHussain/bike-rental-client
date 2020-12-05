@@ -18,8 +18,8 @@ _$_Bike _$_$_BikeFromJson(Map<String, dynamic> json) {
     frontLight: json['front_light'] as String,
     rearLight: json['rear_light'] as String,
     speedSensor: json['speed_sensor'] as String,
-    latitude: json['latitude'] as String,
-    longitude: json['longitude'] as String,
+    latitude: (json['latitude'] as num)?.toDouble(),
+    longitude: (json['longitude'] as num)?.toDouble(),
     photo: (json['photos'] as List)
         ?.map(
             (e) => e == null ? null : Photo.fromJson(e as Map<String, dynamic>))

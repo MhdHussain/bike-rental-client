@@ -1,7 +1,11 @@
 {
+  "app_title": "Bike Renal",
   "details": "Details",
   "book_now": "Book Now",
   "connection_error": "Connection error , Please make sure you are connected to the internet !",
   "location_service_disabled": "Please enable location services to continue",
-  "server_error": "A server error occurred, Please try again "
+  "server_error": "A server error occurred, Please try again ",
+  "no_bikes": "Sorry , We could not find any bikes near your location !",
+  "tap_to_retry": "Tap to retry",
+  "sar_per_day": " SAR / Day"
 }

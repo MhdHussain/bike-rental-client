@@ -28,8 +28,8 @@ class _$BikeTearOff {
       @JsonKey(name: 'front_light') String frontLight,
       @JsonKey(name: 'rear_light') String rearLight,
       @JsonKey(name: 'speed_sensor') String speedSensor,
-      @JsonKey(name: 'latitude') String latitude,
-      @JsonKey(name: 'longitude') String longitude,
+      @JsonKey(name: 'latitude') double latitude,
+      @JsonKey(name: 'longitude') double longitude,
       @JsonKey(name: 'photos') List<Photo> photo,
       double distance}) {
     return _Bike(
@@ -83,9 +83,9 @@ mixin _$Bike {
   @JsonKey(name: 'speed_sensor')
   String get speedSensor;
   @JsonKey(name: 'latitude')
-  String get latitude;
+  double get latitude;
   @JsonKey(name: 'longitude')
-  String get longitude;
+  double get longitude;
   @JsonKey(name: 'photos')
   List<Photo> get photo;
   double get distance;
@@ -109,8 +109,8 @@ abstract class $BikeCopyWith<$Res> {
       @JsonKey(name: 'front_light') String frontLight,
       @JsonKey(name: 'rear_light') String rearLight,
       @JsonKey(name: 'speed_sensor') String speedSensor,
-      @JsonKey(name: 'latitude') String latitude,
-      @JsonKey(name: 'longitude') String longitude,
+      @JsonKey(name: 'latitude') double latitude,
+      @JsonKey(name: 'longitude') double longitude,
       @JsonKey(name: 'photos') List<Photo> photo,
       double distance});
 }
@@ -154,8 +154,8 @@ class _$BikeCopyWithImpl<$Res> implements $BikeCopyWith<$Res> {
       rearLight: rearLight == freezed ? _value.rearLight : rearLight as String,
       speedSensor:
           speedSensor == freezed ? _value.speedSensor : speedSensor as String,
-      latitude: latitude == freezed ? _value.latitude : latitude as String,
-      longitude: longitude == freezed ? _value.longitude : longitude as String,
+      latitude: latitude == freezed ? _value.latitude : latitude as double,
+      longitude: longitude == freezed ? _value.longitude : longitude as double,
       photo: photo == freezed ? _value.photo : photo as List<Photo>,
       distance: distance == freezed ? _value.distance : distance as double,
     ));
@@ -178,8 +178,8 @@ abstract class _$BikeCopyWith<$Res> implements $BikeCopyWith<$Res> {
       @JsonKey(name: 'front_light') String frontLight,
       @JsonKey(name: 'rear_light') String rearLight,
       @JsonKey(name: 'speed_sensor') String speedSensor,
-      @JsonKey(name: 'latitude') String latitude,
-      @JsonKey(name: 'longitude') String longitude,
+      @JsonKey(name: 'latitude') double latitude,
+      @JsonKey(name: 'longitude') double longitude,
       @JsonKey(name: 'photos') List<Photo> photo,
       double distance});
 }
@@ -224,8 +224,8 @@ class __$BikeCopyWithImpl<$Res> extends _$BikeCopyWithImpl<$Res>
       rearLight: rearLight == freezed ? _value.rearLight : rearLight as String,
       speedSensor:
           speedSensor == freezed ? _value.speedSensor : speedSensor as String,
-      latitude: latitude == freezed ? _value.latitude : latitude as String,
-      longitude: longitude == freezed ? _value.longitude : longitude as String,
+      latitude: latitude == freezed ? _value.latitude : latitude as double,
+      longitude: longitude == freezed ? _value.longitude : longitude as double,
       photo: photo == freezed ? _value.photo : photo as List<Photo>,
       distance: distance == freezed ? _value.distance : distance as double,
     ));
@@ -287,10 +287,10 @@ class _$_Bike with DiagnosticableTreeMixin implements _Bike {
   final String speedSensor;
   @override
   @JsonKey(name: 'latitude')
-  final String latitude;
+  final double latitude;
   @override
   @JsonKey(name: 'longitude')
-  final String longitude;
+  final double longitude;
   @override
   @JsonKey(name: 'photos')
   final List<Photo> photo;
@@ -405,8 +405,8 @@ abstract class _Bike implements Bike {
       @JsonKey(name: 'front_light') String frontLight,
       @JsonKey(name: 'rear_light') String rearLight,
       @JsonKey(name: 'speed_sensor') String speedSensor,
-      @JsonKey(name: 'latitude') String latitude,
-      @JsonKey(name: 'longitude') String longitude,
+      @JsonKey(name: 'latitude') double latitude,
+      @JsonKey(name: 'longitude') double longitude,
       @JsonKey(name: 'photos') List<Photo> photo,
       double distance}) = _$_Bike;
 
@@ -444,10 +444,10 @@ abstract class _Bike implements Bike {
   String get speedSensor;
   @override
   @JsonKey(name: 'latitude')
-  String get latitude;
+  double get latitude;
   @override
   @JsonKey(name: 'longitude')
-  String get longitude;
+  double get longitude;
   @override
   @JsonKey(name: 'photos')
   List<Photo> get photo;

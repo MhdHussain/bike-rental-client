@@ -21,8 +21,8 @@ abstract class Bike with _$Bike{
         @JsonKey(name: 'front_light') String frontLight,
         @JsonKey(name: 'rear_light') String rearLight,
         @JsonKey(name: 'speed_sensor') String speedSensor,
-        @JsonKey(name: 'latitude') String latitude,
-        @JsonKey(name: 'longitude') String longitude,
+        @JsonKey(name: 'latitude') double latitude,
+        @JsonKey(name: 'longitude') double longitude,
         @JsonKey(name: 'photos') List<Photo> photo,
         double distance
        }
