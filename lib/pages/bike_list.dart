@@ -62,7 +62,7 @@ class _BikeListPageState extends State<BikeListPage> {
                 urlImg: bike.photo.first.url,
                 brand: bike.brand,
                 description: bike.description,
-                color: index % 2 == 0 ? ThemeColors.primary : ThemeColors.grey_40,
+                color: index % 2 == 0 ? ThemeColors.primary : ThemeColors.primaryLight,
                 price: bike.price,
                 context: context
               );
