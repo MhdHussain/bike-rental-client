@@ -1,16 +1,11 @@
-# bikes_rental_client
+# Bikes Rental Client
 
 The Client app for the bike rental project
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This app is the client app , one of three apps in the bike rental project
 
-A few resources to get you started if this is your first Flutter project:
+## The admin panel repository can be found in the following link
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+https://github.com/MhdHussain/bike_rental_web
