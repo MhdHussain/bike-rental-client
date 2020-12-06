@@ -22,7 +22,7 @@ class FailureWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Icon(Icons.remove_outlined,
+              Icon(Icons.error_outline,
                   size: 100, color: Colors.grey[300]),
               Container(height: 10),
               Text(translator.translate(message),

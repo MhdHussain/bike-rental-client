@@ -9,15 +9,19 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../models/bikes/bike.dart';
+import '../pages/bike_detail.dart';
 import '../pages/bike_list.dart';
 import '../pages/splash_page.dart';
 
 class Routes {
   static const String splashPage = '/';
   static const String bikeListPage = '/bike-list-page';
+  static const String bikeDetail = '/bike-detail';
   static const all = <String>{
     splashPage,
     bikeListPage,
+    bikeDetail,
   };
 }
 
@@ -27,6 +31,7 @@ class Router extends RouterBase {
   final _routes = <RouteDef>[
     RouteDef(Routes.splashPage, page: SplashPage),
     RouteDef(Routes.bikeListPage, page: BikeListPage),
+    RouteDef(Routes.bikeDetail, page: BikeDetail),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -43,5 +48,30 @@ class Router extends RouterBase {
         settings: data,
       );
     },
+    BikeDetail: (data) {
+      final args = data.getArgs<BikeDetailArguments>(
+        orElse: () => BikeDetailArguments(),
+      );
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => BikeDetail(
+          key: args.key,
+          bike: args.bike,
+          bgColor: args.bgColor,
+        ),
+        settings: data,
+      );
+    },
   };
+}
+
+/// ************************************************************************
+/// Arguments holder classes
+/// *************************************************************************
+
+/// BikeDetail arguments holder class
+class BikeDetailArguments {
+  final Key key;
+  final Bike bike;
+  final Color bgColor;
+  BikeDetailArguments({this.key, this.bike, this.bgColor});
 }
