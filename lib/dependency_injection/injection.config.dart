@@ -17,6 +17,7 @@ import '../repositories/bike_reepository.dart';
 import '../repositories/i_auth_repository.dart';
 import '../repositories/i_bike_repository.dart';
 import 'regester_modules.dart';
+import '../state_management/auth/signin_form/cubit/signin_cubit.dart';
 
 /// adds generated dependencies
 /// to the provided [GetIt] instance
@@ -30,6 +31,7 @@ GetIt $initGetIt(
   final registerModule = _$RegisterModule();
   gh.lazySingleton<IAuthRepository>(() => AuthJwtRepository(dio: get<Dio>()));
   gh.factory<Location>(() => registerModule.location);
+  gh.factory<SigninCubit>(() => SigninCubit(get<IAuthRepository>()));
   gh.factory<AuthCubit>(() => AuthCubit(get<IAuthRepository>()));
   gh.lazySingleton<IBikeRepository>(() => BikeRepository(
         geolocator: get<Geolocator>(),

@@ -14,5 +14,6 @@
   "password": "Password",
   "wrong_credintials": "Wrong email or password , please try again",
   "user_disabled": "Sorry, Your user has been disabled",
-  "not_authorized": "Sorry, Your are not authorized to use this app. please sign in using different credintials"
+  "not_authorized": "Sorry, Your are not authorized to use this app. please sign in using different credintials",
+  "error": "Error"
 }

@@ -14,7 +14,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     _timer = new Timer(const Duration(milliseconds: 400), () {
-      print("executed");
+      
       ExtendedNavigator.of(context)
           .pushAndRemoveUntil(Routes.bikeListPage, (route) => false);
     });

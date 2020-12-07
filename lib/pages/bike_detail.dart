@@ -1,4 +1,4 @@
-import 'package:auto_route/auto_route.dart';
+
 import 'package:bikes_rental_client/app_localizations.dart';
 import 'package:bikes_rental_client/routes/router.gr.dart';
 import 'package:bikes_rental_client/state_management/auth/cubit/auth_cubit.dart';

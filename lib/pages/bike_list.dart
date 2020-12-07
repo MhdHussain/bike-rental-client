@@ -25,16 +25,12 @@ class _BikeListPageState extends State<BikeListPage> {
   @override
   void initState() {
     context.read<BikeListCubit>().loadBikes();
-    getAuthStatus();
+    context.read<AuthCubit>().getAuthStatus();
+ 
     super.initState();
   }
 
-  Future<void> getAuthStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      this.isLoggedIn = prefs.get(Constants.ACCESS_TOKEN_KEY) != null;
-    });
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +81,7 @@ class _BikeListPageState extends State<BikeListPage> {
           )),
         );
       }, listener: (context, state) {
-        //TODO: implement booking functionality
+        //
         return null;
       }),
     );
@@ -189,12 +185,18 @@ class _BikeListPageState extends State<BikeListPage> {
                   builder: (context, state) {
                     return state.map(
                       initial: (_) => Container(),
-                      authenticated: (_) => ActionButton(context: context, 
-                      text: translator.translate('book_now'), 
-                      route: "Un implemented" , width: 150,),
-                      unAuthenticated: (_) => ActionButton(context: context, 
-                      text: translator.translate('login'), 
-                      route: Routes.loginPage , width: 150,),
+                      authenticated: (_) => ActionButton(
+                        context: context,
+                        text: translator.translate('book_now'),
+                        route: "Un implemented",
+                        width: 150,
+                      ),
+                      unAuthenticated: (_) => ActionButton(
+                        context: context,
+                        text: translator.translate('login'),
+                        route: Routes.loginPage,
+                        width: 150,
+                      ),
                     );
                   },
                 )
@@ -206,5 +208,3 @@ class _BikeListPageState extends State<BikeListPage> {
     );
   }
 }
-
-
