@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bikes_rental_client/app_localizations.dart';
 import 'package:bikes_rental_client/pages/bike_list.dart';
+import 'package:bikes_rental_client/pages/login.dart';
 import 'package:bikes_rental_client/routes/router.gr.dart';
-import 'package:bikes_rental_client/state_management/cubit/bike_list_cubit.dart';
+import 'package:bikes_rental_client/state_management/auth/cubit/auth_cubit.dart';
+import 'package:bikes_rental_client/state_management/bike_list/bike_list_cubit.dart';
 import 'package:bikes_rental_client/utils/theme_colors.dart';
 import 'package:flutter/material.dart' hide Router;
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +24,7 @@ class BikesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => getIt<AuthCubit>()..getAuthStatus()),
         BlocProvider(
           create: (context) => getIt<BikeListCubit>(),
           child: BikeListPage(),

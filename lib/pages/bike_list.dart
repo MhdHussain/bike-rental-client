@@ -1,12 +1,16 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:bikes_rental_client/constants.dart';
 import 'package:bikes_rental_client/models/bikes/bike.dart';
 import 'package:bikes_rental_client/routes/router.gr.dart';
-import 'package:bikes_rental_client/state_management/cubit/bike_list_cubit.dart';
+import 'package:bikes_rental_client/state_management/auth/cubit/auth_cubit.dart';
+import 'package:bikes_rental_client/state_management/bike_list/bike_list_cubit.dart';
 import 'package:bikes_rental_client/utils/theme_colors.dart';
+import 'package:bikes_rental_client/widgets/action_button.dart';
 import 'package:bikes_rental_client/widgets/failure_widget.dart';
 import 'package:bikes_rental_client/widgets/no_data.dart';
 import 'package:flutter/material.dart' hide Router;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../app_localizations.dart';
 
@@ -16,10 +20,20 @@ class BikeListPage extends StatefulWidget {
 }
 
 class _BikeListPageState extends State<BikeListPage> {
+  bool isLoggedIn;
+
   @override
   void initState() {
     context.read<BikeListCubit>().loadBikes();
+    getAuthStatus();
     super.initState();
+  }
+
+  Future<void> getAuthStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      this.isLoggedIn = prefs.get(Constants.ACCESS_TOKEN_KEY) != null;
+    });
   }
 
   @override
@@ -81,17 +95,14 @@ class _BikeListPageState extends State<BikeListPage> {
     final translator = AppLocalizations.of(context);
 
     return GestureDetector(
-        onTap: (){
-           ExtendedNavigator.of(context).push(Routes.bikeDetail,
-                      arguments: BikeDetailArguments(
-                        bike: bike,
-                        bgColor: color
-                      ));
-        },
-          child: Container(
+      onTap: () {
+        ExtendedNavigator.of(context).push(Routes.bikeDetail,
+            arguments: BikeDetailArguments(bike: bike, bgColor: color));
+      },
+      child: Container(
         margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        decoration:
-            BoxDecoration(color: color, borderRadius: BorderRadius.circular(50)),
+        decoration: BoxDecoration(
+            color: color, borderRadius: BorderRadius.circular(50)),
         height: 400,
         width: double.infinity,
         child: Column(
@@ -160,10 +171,8 @@ class _BikeListPageState extends State<BikeListPage> {
                 GestureDetector(
                   onTap: () {
                     ExtendedNavigator.of(context).push(Routes.bikeDetail,
-                        arguments: BikeDetailArguments(
-                          bike: bike,
-                          bgColor: color
-                        ));
+                        arguments:
+                            BikeDetailArguments(bike: bike, bgColor: color));
                   },
                   child: Container(
                       width: 150,
@@ -176,27 +185,18 @@ class _BikeListPageState extends State<BikeListPage> {
                 Expanded(
                   child: Container(),
                 ),
-                Container(
-                  height: 70,
-                  width: 150,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(50),
-                          topLeft: Radius.circular(50))),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        translator.translate('book_now'),
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Icon(
-                        Icons.arrow_right,
-                      )
-                    ],
-                  ),
+                BlocBuilder<AuthCubit, AuthState>(
+                  builder: (context, state) {
+                    return state.map(
+                      initial: (_) => Container(),
+                      authenticated: (_) => ActionButton(context: context, 
+                      text: translator.translate('book_now'), 
+                      route: "Un implemented" , width: 150,),
+                      unAuthenticated: (_) => ActionButton(context: context, 
+                      text: translator.translate('login'), 
+                      route: Routes.loginPage , width: 150,),
+                    );
+                  },
                 )
               ],
             )
@@ -206,3 +206,5 @@ class _BikeListPageState extends State<BikeListPage> {
     );
   }
 }
+
+

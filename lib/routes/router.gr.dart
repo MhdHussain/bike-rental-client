@@ -12,16 +12,19 @@ import 'package:flutter/material.dart';
 import '../models/bikes/bike.dart';
 import '../pages/bike_detail.dart';
 import '../pages/bike_list.dart';
+import '../pages/login.dart';
 import '../pages/splash_page.dart';
 
 class Routes {
   static const String splashPage = '/';
   static const String bikeListPage = '/bike-list-page';
   static const String bikeDetail = '/bike-detail';
+  static const String loginPage = '/login-page';
   static const all = <String>{
     splashPage,
     bikeListPage,
     bikeDetail,
+    loginPage,
   };
 }
 
@@ -32,6 +35,7 @@ class Router extends RouterBase {
     RouteDef(Routes.splashPage, page: SplashPage),
     RouteDef(Routes.bikeListPage, page: BikeListPage),
     RouteDef(Routes.bikeDetail, page: BikeDetail),
+    RouteDef(Routes.loginPage, page: LoginPage),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -58,6 +62,12 @@ class Router extends RouterBase {
           bike: args.bike,
           bgColor: args.bgColor,
         ),
+        settings: data,
+      );
+    },
+    LoginPage: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => LoginPage(),
         settings: data,
       );
     },

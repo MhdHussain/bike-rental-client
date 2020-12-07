@@ -10,8 +10,11 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:location/location.dart';
 
-import '../state_management/cubit/bike_list_cubit.dart';
+import '../state_management/auth/cubit/auth_cubit.dart';
+import '../repositories/auth_jwt_repository.dart';
+import '../state_management/bike_list/bike_list_cubit.dart';
 import '../repositories/bike_reepository.dart';
+import '../repositories/i_auth_repository.dart';
 import '../repositories/i_bike_repository.dart';
 import 'regester_modules.dart';
 
@@ -25,7 +28,9 @@ GetIt $initGetIt(
 }) {
   final gh = GetItHelper(get, environment, environmentFilter);
   final registerModule = _$RegisterModule();
+  gh.lazySingleton<IAuthRepository>(() => AuthJwtRepository(dio: get<Dio>()));
   gh.factory<Location>(() => registerModule.location);
+  gh.factory<AuthCubit>(() => AuthCubit(get<IAuthRepository>()));
   gh.lazySingleton<IBikeRepository>(() => BikeRepository(
         geolocator: get<Geolocator>(),
         dio: get<Dio>(),

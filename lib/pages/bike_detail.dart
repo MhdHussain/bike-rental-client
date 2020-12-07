@@ -1,7 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:bikes_rental_client/app_localizations.dart';
+import 'package:bikes_rental_client/routes/router.gr.dart';
+import 'package:bikes_rental_client/state_management/auth/cubit/auth_cubit.dart';
+import 'package:bikes_rental_client/widgets/action_button.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bikes_rental_client/models/bikes/bike.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../constants.dart';
 
 class BikeDetail extends StatefulWidget {
   final Bike bike;
@@ -17,24 +25,38 @@ class BikeDetail extends StatefulWidget {
 }
 
 class _BikeDetailState extends State<BikeDetail> {
-  
+  bool isLoggedIn;
+
+  @override
+  void initState() {
+    super.initState();
+    getAuthStatus();
+  }
+
+  Future<void> getAuthStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      this.isLoggedIn = prefs.get(Constants.ACCESS_TOKEN_KEY) != null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
       appBar: AppBar(
         backgroundColor: widget.bgColor,
         elevation: 0,
       ),
       backgroundColor: widget.bgColor,
-      body: Column(
+      body: ListView(
         children: <Widget>[
           SizedBox(
             height: 20,
           ),
           _imgHeader(widget.bike.photo.first.url),
-          _brandWidget(widget.bike.brand, widget.bike.description, widget.bgColor),
-          _price(widget.bike.price , context),
+          _brandWidget(widget.bike.brand, widget.bike.description,
+              widget.bike.height, widget.bgColor),
+          _price(widget.bike.price, context),
           SizedBox(
             height: 50,
           ),
@@ -42,7 +64,6 @@ class _BikeDetailState extends State<BikeDetail> {
           Expanded(
             child: Container(),
           ),
-         
         ],
       ),
     );
@@ -56,7 +77,8 @@ class _BikeDetailState extends State<BikeDetail> {
         ));
   }
 
-  Widget _brandWidget(String brand, String description, Color color) {
+  Widget _brandWidget(
+      String brand, String description, double height, Color color) {
     return Padding(
       padding: const EdgeInsets.all(30.0),
       child: Row(
@@ -71,12 +93,19 @@ class _BikeDetailState extends State<BikeDetail> {
                     fontSize: 30,
                     fontWeight: FontWeight.w300),
               ),
-              Text(
-                description,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w300),
+              Container(
+                width: 200,
+                child: Expanded(
+                  child: Text(
+                    description,
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w300),
+                  ),
+                ),
               )
             ],
           ),
@@ -84,20 +113,32 @@ class _BikeDetailState extends State<BikeDetail> {
             child: Container(),
           ),
           Container(
-            width: 50,
-            height: 50,
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                border: Border.all(width: .5, color: Colors.white)),
-            child: Icon(Icons.electric_bike)
-          )
+              width: 80,
+              height: 80,
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(width: .5, color: Colors.white)),
+              child: Column(
+                children: [
+                  Icon(Icons.height , color: Colors.white,),
+                  Text(
+                    height.toString(),
+
+                    style: TextStyle(fontSize: 11 , color: Colors.white),
+                  ),
+                  Text(
+                    "CM",
+                    style: TextStyle(fontSize: 11 , color: Colors.white),
+                  ),
+                ],
+              ))
         ],
       ),
     );
   }
 
-  Widget _price(String price , BuildContext context) {
+  Widget _price(String price, BuildContext context) {
     final translator = AppLocalizations.of(context);
     return Row(
       children: <Widget>[
@@ -119,25 +160,19 @@ class _BikeDetailState extends State<BikeDetail> {
         Expanded(
           child: Container(),
         ),
-        Container(
-          width: 200,
-          height: 70,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  bottomLeft: Radius.circular(40))),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(translator.translate('book_now'),
-                  style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                  )),
-              Icon(Icons.arrow_right)
-            ],
-          ),
-        )
+         BlocBuilder<AuthCubit, AuthState>(
+                  builder: (context, state) {
+                    return state.map(
+                      initial: (_) => Container(),
+                      authenticated: (_) => ActionButton(context: context, 
+                      text: translator.translate('book_now'), 
+                      route: "Un implemented" , width: 200,),
+                      unAuthenticated: (_) => ActionButton(context: context, 
+                      text: translator.translate('login'), 
+                      route: Routes.loginPage , width: 200,),
+                    );
+                  },
+                )
       ],
     );
   }
@@ -146,15 +181,27 @@ class _BikeDetailState extends State<BikeDetail> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        _specification(bike.frontLight == "Yes" ? Icons.online_prediction : Icons.highlight_remove, "Front Light" , bike.frontLight),
-        _specification(bike.rearLight == "Yes" ? Icons.power : Icons.power_off_outlined , "Rear Light",  bike.rearLight),
-        _specification(bike.speedSensor == "Yes" ? Icons.speed_rounded : Icons.highlight_remove, "Speed Scensor",  bike.speedSensor)
+        _specification(
+            bike.frontLight == "Yes"
+                ? Icons.online_prediction
+                : Icons.highlight_remove,
+            "Front Light",
+            bike.frontLight),
+        _specification(
+            bike.rearLight == "Yes" ? Icons.power : Icons.power_off_outlined,
+            "Rear Light",
+            bike.rearLight),
+        _specification(
+            bike.speedSensor == "Yes"
+                ? Icons.speed_rounded
+                : Icons.highlight_remove,
+            "Speed Scensor",
+            bike.speedSensor)
       ],
     );
   }
 
-  Widget _specification(
-      IconData icon, String title, String value) {
+  Widget _specification(IconData icon, String title, String value) {
     return Column(
       children: <Widget>[
         Icon(
@@ -173,7 +220,6 @@ class _BikeDetailState extends State<BikeDetail> {
         SizedBox(
           height: 10,
         ),
-        
         Text(
           value,
           style: TextStyle(
@@ -182,6 +228,4 @@ class _BikeDetailState extends State<BikeDetail> {
       ],
     );
   }
-
-  
 }
