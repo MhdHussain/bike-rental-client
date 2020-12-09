@@ -18,6 +18,7 @@ class BikeBookingDialog extends StatefulWidget {
 
 class BikeBookingDialogState extends State<BikeBookingDialog> {
   int bikeCount = 1;
+  int dayCount = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -97,6 +98,34 @@ class BikeBookingDialogState extends State<BikeBookingDialog> {
                     Row(
                       children: <Widget>[
                         Expanded(
+                          flex: 2,
+                          child: Column(
+                            children: <Widget>[
+                              FlatButton(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 40),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(18.0)),
+                                child: Row(
+                                  children: [
+                                    Text(translator.translate('bikes') , style: TextStyle(color: Colors.white)),
+                                    Icon(Icons.add , color: Colors.white,)
+                                  ],
+                                ),
+                                color: ThemeColors.primaryLight,
+                                onPressed: () {
+                                  if (bikeCount < widget.bike.quantity) {
+                                    setState(() {
+                                      bikeCount = bikeCount + 1;
+                                    });
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
                           flex: 1,
                           child: Column(
                             children: <Widget>[
@@ -109,30 +138,53 @@ class BikeBookingDialogState extends State<BikeBookingDialog> {
                             ],
                           ),
                         ),
-                        Expanded(
-                          flex: 1,
+                        
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                         Expanded(
+                          flex: 2,
                           child: Column(
                             children: <Widget>[
                               FlatButton(
+                                
                                 padding: EdgeInsets.symmetric(
-                                    vertical: 0, horizontal: 40),
+                                    vertical: 0, horizontal: 10),
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
                                         new BorderRadius.circular(18.0)),
-                                child: Icon(Icons.add),
+                                child: Row(children: [
+                                  Text(translator.translate('period_in_days') , 
+                                  style: TextStyle(fontSize: 11 , color: Colors.white), ),
+                                  Icon(Icons.add , color: Colors.white)
+                                ],),
                                 color: ThemeColors.primaryLight,
                                 onPressed: () {
-                                  if(bikeCount < widget.bike.quantity){
+                                  
                                     setState(() {
-                                    bikeCount = bikeCount + 1;
-                                    
-                                  });
-                                  }
+                                      dayCount = dayCount + 1;
+                                    });
+                                  
                                 },
                               ),
                             ],
                           ),
                         ),
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            children: <Widget>[
+                              Text(dayCount.toString(),
+                                  style: CustomText.title(context).copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold)),
+                              // Container(height: 5),
+                              // Text("Following", style: MyText.medium(context).copyWith(color: MyColors.grey_20))
+                            ],
+                          ),
+                        ),
+                       
                       ],
                     ),
                   ],

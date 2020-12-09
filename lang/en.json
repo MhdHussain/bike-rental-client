@@ -28,5 +28,6 @@
   "invalid_phone_number": "Please enter a valid phone number",
   "email_already_used": "There is an account already associated with the email you entered \nPlease sign in or use another email to signup",
   "available_bikes": "The amount of bikes available for rent is ",
-  "bikes": "bikes"
+  "bikes": "bikes",
+  "period_in_days": "Period (in days)"
 }
