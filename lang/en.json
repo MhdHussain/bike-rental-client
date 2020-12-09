@@ -1,7 +1,7 @@
 {
   "app_title": "Bike Renal",
   "details": "Details",
-  "book_now": "Book Now",
+  "book_now": "Rent Now",
   "connection_error": "Connection error , Please make sure you are connected to the internet !",
   "location_service_disabled": "Please enable location services to continue",
   "server_error": "A server error occurred, Please try again ",
@@ -15,5 +15,18 @@
   "wrong_credintials": "Wrong email or password , please try again",
   "user_disabled": "Sorry, Your user has been disabled",
   "not_authorized": "Sorry, Your are not authorized to use this app. please sign in using different credintials",
-  "error": "Error"
+  "error": "Error",
+  "name": "Name",
+  "phone_number": "Phone Number",
+  "name_validation": "The name cannot be empty",
+  "email_validation": "Please enter a valid email",
+  "password_validation": "The password cannot be empty",
+  "phone_number_validation": "Please enter a phone number that starts with 05",
+  "invalid_name": "Please enter your name",
+  "invalid_email": "Please enter a valid email",
+  "invalid_password": "Password field cannot be empty",
+  "invalid_phone_number": "Please enter a valid phone number",
+  "email_already_used": "There is an account already associated with the email you entered \nPlease sign in or use another email to signup",
+  "available_bikes": "The amount of bikes available for rent is ",
+  "bikes": "bikes"
 }

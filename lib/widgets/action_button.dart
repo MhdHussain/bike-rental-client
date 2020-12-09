@@ -6,21 +6,19 @@ class ActionButton extends StatelessWidget {
     Key key,
     @required this.context,
     @required this.text,
-    @required this.route,
+    @required this.onClick,
     @required this.width,
   }) : super(key: key);
 
   final BuildContext context;
   final String text;
-  final String route;
+  final Function onClick;
   final double width;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        ExtendedNavigator.of(context).push(route);
-      },
+      onTap: onClick,
       child: Container(
         height: 70,
         width: width,

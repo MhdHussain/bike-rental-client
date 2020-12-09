@@ -28,6 +28,13 @@ class _$FailureTearOff {
   }
 
 // ignore: unused_element
+  EmailAlreadyInUse<T> emailAlreadyInUse<T>({@required String message}) {
+    return EmailAlreadyInUse<T>(
+      message: message,
+    );
+  }
+
+// ignore: unused_element
   UserDisabled<T> userDisabled<T>({@required String message}) {
     return UserDisabled<T>(
       message: message,
@@ -62,6 +69,7 @@ mixin _$Failure<T> {
   TResult when<TResult extends Object>({
     @required TResult requestTimeOut(String message),
     @required TResult wrongAuthCredintials(String message),
+    @required TResult emailAlreadyInUse(String message),
     @required TResult userDisabled(String message),
     @required TResult locationError(String message),
     @required TResult locationServiceDisabled(String message),
@@ -70,6 +78,7 @@ mixin _$Failure<T> {
   TResult maybeWhen<TResult extends Object>({
     TResult requestTimeOut(String message),
     TResult wrongAuthCredintials(String message),
+    TResult emailAlreadyInUse(String message),
     TResult userDisabled(String message),
     TResult locationError(String message),
     TResult locationServiceDisabled(String message),
@@ -79,6 +88,7 @@ mixin _$Failure<T> {
   TResult map<TResult extends Object>({
     @required TResult requestTimeOut(RequestTimeOut<T> value),
     @required TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
+    @required TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     @required TResult userDisabled(UserDisabled<T> value),
     @required TResult locationError(LocationError<T> value),
     @required TResult locationServiceDisabled(LocationServiceDisabled<T> value),
@@ -87,6 +97,7 @@ mixin _$Failure<T> {
   TResult maybeMap<TResult extends Object>({
     TResult requestTimeOut(RequestTimeOut<T> value),
     TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
+    TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     TResult userDisabled(UserDisabled<T> value),
     TResult locationError(LocationError<T> value),
     TResult locationServiceDisabled(LocationServiceDisabled<T> value),
@@ -185,12 +196,14 @@ class _$RequestTimeOut<T> implements RequestTimeOut<T> {
   TResult when<TResult extends Object>({
     @required TResult requestTimeOut(String message),
     @required TResult wrongAuthCredintials(String message),
+    @required TResult emailAlreadyInUse(String message),
     @required TResult userDisabled(String message),
     @required TResult locationError(String message),
     @required TResult locationServiceDisabled(String message),
   }) {
     assert(requestTimeOut != null);
     assert(wrongAuthCredintials != null);
+    assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
@@ -202,6 +215,7 @@ class _$RequestTimeOut<T> implements RequestTimeOut<T> {
   TResult maybeWhen<TResult extends Object>({
     TResult requestTimeOut(String message),
     TResult wrongAuthCredintials(String message),
+    TResult emailAlreadyInUse(String message),
     TResult userDisabled(String message),
     TResult locationError(String message),
     TResult locationServiceDisabled(String message),
@@ -219,12 +233,14 @@ class _$RequestTimeOut<T> implements RequestTimeOut<T> {
   TResult map<TResult extends Object>({
     @required TResult requestTimeOut(RequestTimeOut<T> value),
     @required TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
+    @required TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     @required TResult userDisabled(UserDisabled<T> value),
     @required TResult locationError(LocationError<T> value),
     @required TResult locationServiceDisabled(LocationServiceDisabled<T> value),
   }) {
     assert(requestTimeOut != null);
     assert(wrongAuthCredintials != null);
+    assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
@@ -236,6 +252,7 @@ class _$RequestTimeOut<T> implements RequestTimeOut<T> {
   TResult maybeMap<TResult extends Object>({
     TResult requestTimeOut(RequestTimeOut<T> value),
     TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
+    TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     TResult userDisabled(UserDisabled<T> value),
     TResult locationError(LocationError<T> value),
     TResult locationServiceDisabled(LocationServiceDisabled<T> value),
@@ -325,12 +342,14 @@ class _$WrongAuthCredintials<T> implements WrongAuthCredintials<T> {
   TResult when<TResult extends Object>({
     @required TResult requestTimeOut(String message),
     @required TResult wrongAuthCredintials(String message),
+    @required TResult emailAlreadyInUse(String message),
     @required TResult userDisabled(String message),
     @required TResult locationError(String message),
     @required TResult locationServiceDisabled(String message),
   }) {
     assert(requestTimeOut != null);
     assert(wrongAuthCredintials != null);
+    assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
@@ -342,6 +361,7 @@ class _$WrongAuthCredintials<T> implements WrongAuthCredintials<T> {
   TResult maybeWhen<TResult extends Object>({
     TResult requestTimeOut(String message),
     TResult wrongAuthCredintials(String message),
+    TResult emailAlreadyInUse(String message),
     TResult userDisabled(String message),
     TResult locationError(String message),
     TResult locationServiceDisabled(String message),
@@ -359,12 +379,14 @@ class _$WrongAuthCredintials<T> implements WrongAuthCredintials<T> {
   TResult map<TResult extends Object>({
     @required TResult requestTimeOut(RequestTimeOut<T> value),
     @required TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
+    @required TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     @required TResult userDisabled(UserDisabled<T> value),
     @required TResult locationError(LocationError<T> value),
     @required TResult locationServiceDisabled(LocationServiceDisabled<T> value),
   }) {
     assert(requestTimeOut != null);
     assert(wrongAuthCredintials != null);
+    assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
@@ -376,6 +398,7 @@ class _$WrongAuthCredintials<T> implements WrongAuthCredintials<T> {
   TResult maybeMap<TResult extends Object>({
     TResult requestTimeOut(RequestTimeOut<T> value),
     TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
+    TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     TResult userDisabled(UserDisabled<T> value),
     TResult locationError(LocationError<T> value),
     TResult locationServiceDisabled(LocationServiceDisabled<T> value),
@@ -397,6 +420,151 @@ abstract class WrongAuthCredintials<T> implements Failure<T> {
   String get message;
   @override
   $WrongAuthCredintialsCopyWith<T, WrongAuthCredintials<T>> get copyWith;
+}
+
+/// @nodoc
+abstract class $EmailAlreadyInUseCopyWith<T, $Res>
+    implements $FailureCopyWith<T, $Res> {
+  factory $EmailAlreadyInUseCopyWith(EmailAlreadyInUse<T> value,
+          $Res Function(EmailAlreadyInUse<T>) then) =
+      _$EmailAlreadyInUseCopyWithImpl<T, $Res>;
+  @override
+  $Res call({String message});
+}
+
+/// @nodoc
+class _$EmailAlreadyInUseCopyWithImpl<T, $Res>
+    extends _$FailureCopyWithImpl<T, $Res>
+    implements $EmailAlreadyInUseCopyWith<T, $Res> {
+  _$EmailAlreadyInUseCopyWithImpl(
+      EmailAlreadyInUse<T> _value, $Res Function(EmailAlreadyInUse<T>) _then)
+      : super(_value, (v) => _then(v as EmailAlreadyInUse<T>));
+
+  @override
+  EmailAlreadyInUse<T> get _value => super._value as EmailAlreadyInUse<T>;
+
+  @override
+  $Res call({
+    Object message = freezed,
+  }) {
+    return _then(EmailAlreadyInUse<T>(
+      message: message == freezed ? _value.message : message as String,
+    ));
+  }
+}
+
+/// @nodoc
+class _$EmailAlreadyInUse<T> implements EmailAlreadyInUse<T> {
+  const _$EmailAlreadyInUse({@required this.message}) : assert(message != null);
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'Failure<$T>.emailAlreadyInUse(message: $message)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is EmailAlreadyInUse<T> &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality().equals(other.message, message)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(message);
+
+  @override
+  $EmailAlreadyInUseCopyWith<T, EmailAlreadyInUse<T>> get copyWith =>
+      _$EmailAlreadyInUseCopyWithImpl<T, EmailAlreadyInUse<T>>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult requestTimeOut(String message),
+    @required TResult wrongAuthCredintials(String message),
+    @required TResult emailAlreadyInUse(String message),
+    @required TResult userDisabled(String message),
+    @required TResult locationError(String message),
+    @required TResult locationServiceDisabled(String message),
+  }) {
+    assert(requestTimeOut != null);
+    assert(wrongAuthCredintials != null);
+    assert(emailAlreadyInUse != null);
+    assert(userDisabled != null);
+    assert(locationError != null);
+    assert(locationServiceDisabled != null);
+    return emailAlreadyInUse(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult requestTimeOut(String message),
+    TResult wrongAuthCredintials(String message),
+    TResult emailAlreadyInUse(String message),
+    TResult userDisabled(String message),
+    TResult locationError(String message),
+    TResult locationServiceDisabled(String message),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (emailAlreadyInUse != null) {
+      return emailAlreadyInUse(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult requestTimeOut(RequestTimeOut<T> value),
+    @required TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
+    @required TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
+    @required TResult userDisabled(UserDisabled<T> value),
+    @required TResult locationError(LocationError<T> value),
+    @required TResult locationServiceDisabled(LocationServiceDisabled<T> value),
+  }) {
+    assert(requestTimeOut != null);
+    assert(wrongAuthCredintials != null);
+    assert(emailAlreadyInUse != null);
+    assert(userDisabled != null);
+    assert(locationError != null);
+    assert(locationServiceDisabled != null);
+    return emailAlreadyInUse(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult requestTimeOut(RequestTimeOut<T> value),
+    TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
+    TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
+    TResult userDisabled(UserDisabled<T> value),
+    TResult locationError(LocationError<T> value),
+    TResult locationServiceDisabled(LocationServiceDisabled<T> value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (emailAlreadyInUse != null) {
+      return emailAlreadyInUse(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class EmailAlreadyInUse<T> implements Failure<T> {
+  const factory EmailAlreadyInUse({@required String message}) =
+      _$EmailAlreadyInUse<T>;
+
+  @override
+  String get message;
+  @override
+  $EmailAlreadyInUseCopyWith<T, EmailAlreadyInUse<T>> get copyWith;
 }
 
 /// @nodoc
@@ -462,12 +630,14 @@ class _$UserDisabled<T> implements UserDisabled<T> {
   TResult when<TResult extends Object>({
     @required TResult requestTimeOut(String message),
     @required TResult wrongAuthCredintials(String message),
+    @required TResult emailAlreadyInUse(String message),
     @required TResult userDisabled(String message),
     @required TResult locationError(String message),
     @required TResult locationServiceDisabled(String message),
   }) {
     assert(requestTimeOut != null);
     assert(wrongAuthCredintials != null);
+    assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
@@ -479,6 +649,7 @@ class _$UserDisabled<T> implements UserDisabled<T> {
   TResult maybeWhen<TResult extends Object>({
     TResult requestTimeOut(String message),
     TResult wrongAuthCredintials(String message),
+    TResult emailAlreadyInUse(String message),
     TResult userDisabled(String message),
     TResult locationError(String message),
     TResult locationServiceDisabled(String message),
@@ -496,12 +667,14 @@ class _$UserDisabled<T> implements UserDisabled<T> {
   TResult map<TResult extends Object>({
     @required TResult requestTimeOut(RequestTimeOut<T> value),
     @required TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
+    @required TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     @required TResult userDisabled(UserDisabled<T> value),
     @required TResult locationError(LocationError<T> value),
     @required TResult locationServiceDisabled(LocationServiceDisabled<T> value),
   }) {
     assert(requestTimeOut != null);
     assert(wrongAuthCredintials != null);
+    assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
@@ -513,6 +686,7 @@ class _$UserDisabled<T> implements UserDisabled<T> {
   TResult maybeMap<TResult extends Object>({
     TResult requestTimeOut(RequestTimeOut<T> value),
     TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
+    TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     TResult userDisabled(UserDisabled<T> value),
     TResult locationError(LocationError<T> value),
     TResult locationServiceDisabled(LocationServiceDisabled<T> value),
@@ -599,12 +773,14 @@ class _$LocationError<T> implements LocationError<T> {
   TResult when<TResult extends Object>({
     @required TResult requestTimeOut(String message),
     @required TResult wrongAuthCredintials(String message),
+    @required TResult emailAlreadyInUse(String message),
     @required TResult userDisabled(String message),
     @required TResult locationError(String message),
     @required TResult locationServiceDisabled(String message),
   }) {
     assert(requestTimeOut != null);
     assert(wrongAuthCredintials != null);
+    assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
@@ -616,6 +792,7 @@ class _$LocationError<T> implements LocationError<T> {
   TResult maybeWhen<TResult extends Object>({
     TResult requestTimeOut(String message),
     TResult wrongAuthCredintials(String message),
+    TResult emailAlreadyInUse(String message),
     TResult userDisabled(String message),
     TResult locationError(String message),
     TResult locationServiceDisabled(String message),
@@ -633,12 +810,14 @@ class _$LocationError<T> implements LocationError<T> {
   TResult map<TResult extends Object>({
     @required TResult requestTimeOut(RequestTimeOut<T> value),
     @required TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
+    @required TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     @required TResult userDisabled(UserDisabled<T> value),
     @required TResult locationError(LocationError<T> value),
     @required TResult locationServiceDisabled(LocationServiceDisabled<T> value),
   }) {
     assert(requestTimeOut != null);
     assert(wrongAuthCredintials != null);
+    assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
@@ -650,6 +829,7 @@ class _$LocationError<T> implements LocationError<T> {
   TResult maybeMap<TResult extends Object>({
     TResult requestTimeOut(RequestTimeOut<T> value),
     TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
+    TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     TResult userDisabled(UserDisabled<T> value),
     TResult locationError(LocationError<T> value),
     TResult locationServiceDisabled(LocationServiceDisabled<T> value),
@@ -740,12 +920,14 @@ class _$LocationServiceDisabled<T> implements LocationServiceDisabled<T> {
   TResult when<TResult extends Object>({
     @required TResult requestTimeOut(String message),
     @required TResult wrongAuthCredintials(String message),
+    @required TResult emailAlreadyInUse(String message),
     @required TResult userDisabled(String message),
     @required TResult locationError(String message),
     @required TResult locationServiceDisabled(String message),
   }) {
     assert(requestTimeOut != null);
     assert(wrongAuthCredintials != null);
+    assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
@@ -757,6 +939,7 @@ class _$LocationServiceDisabled<T> implements LocationServiceDisabled<T> {
   TResult maybeWhen<TResult extends Object>({
     TResult requestTimeOut(String message),
     TResult wrongAuthCredintials(String message),
+    TResult emailAlreadyInUse(String message),
     TResult userDisabled(String message),
     TResult locationError(String message),
     TResult locationServiceDisabled(String message),
@@ -774,12 +957,14 @@ class _$LocationServiceDisabled<T> implements LocationServiceDisabled<T> {
   TResult map<TResult extends Object>({
     @required TResult requestTimeOut(RequestTimeOut<T> value),
     @required TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
+    @required TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     @required TResult userDisabled(UserDisabled<T> value),
     @required TResult locationError(LocationError<T> value),
     @required TResult locationServiceDisabled(LocationServiceDisabled<T> value),
   }) {
     assert(requestTimeOut != null);
     assert(wrongAuthCredintials != null);
+    assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
@@ -791,6 +976,7 @@ class _$LocationServiceDisabled<T> implements LocationServiceDisabled<T> {
   TResult maybeMap<TResult extends Object>({
     TResult requestTimeOut(RequestTimeOut<T> value),
     TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
+    TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     TResult userDisabled(UserDisabled<T> value),
     TResult locationError(LocationError<T> value),
     TResult locationServiceDisabled(LocationServiceDisabled<T> value),

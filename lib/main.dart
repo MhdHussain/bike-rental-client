@@ -2,9 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:bikes_rental_client/app_localizations.dart';
 import 'package:bikes_rental_client/pages/bike_list.dart';
 import 'package:bikes_rental_client/pages/login.dart';
+import 'package:bikes_rental_client/pages/signup.dart';
 import 'package:bikes_rental_client/routes/router.gr.dart';
 import 'package:bikes_rental_client/state_management/auth/cubit/auth_cubit.dart';
 import 'package:bikes_rental_client/state_management/auth/signin_form/cubit/signin_cubit.dart';
+import 'package:bikes_rental_client/state_management/auth/signup_form/cubit/signup_cubit.dart';
 import 'package:bikes_rental_client/state_management/bike_list/bike_list_cubit.dart';
 import 'package:bikes_rental_client/utils/theme_colors.dart';
 import 'package:flutter/material.dart' hide Router;
@@ -27,6 +29,7 @@ class BikesApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => getIt<AuthCubit>()..getAuthStatus()),
         BlocProvider(create: (context) => getIt<SigninCubit>() , child : LoginPage()),
+        BlocProvider(create: (context) => getIt<SignupCubit>() , child : SignupPage()),
         BlocProvider(
           create: (context) => getIt<BikeListCubit>(),
           child: BikeListPage(),

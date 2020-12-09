@@ -18,7 +18,7 @@ class SigninCubit extends Cubit<SigninState> {
     emit(SigninState.signingIn());
 
     final successOrFailure = await _repository.login(email, password);
-    print("cubit email is " + email);
+  
     successOrFailure.fold(
         (failure) => emit(SigninState.failed(message: failure.message)),
         (success) => emit(SigninState.success()));

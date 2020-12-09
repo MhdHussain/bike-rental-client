@@ -32,8 +32,6 @@ class AuthJwtRepository implements IAuthRepository {
       return left(Failure.requestTimeOut(message: "connection_error"));
     }
 
-    print(" the email is : " + email);
-
     FormData formData = new FormData.fromMap({
       "email": email,
       "password": password,
@@ -64,6 +62,51 @@ class AuthJwtRepository implements IAuthRepository {
         return left(Failure.userDisabled(message: "user_disabled"));
       } else if (error.response.statusCode == 401) {
         return left(Failure.wrongAuthCredintials(message: "not_authorized"));
+      } else {
+        return left(Failure.requestTimeOut(message: "server_error"));
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, Auth>> signup(
+      String name, String email, String password, String phoneNumber) async {
+    // check if connected to the internet
+    bool isConnected = await Checker.connectionStatus;
+    if (!isConnected) {
+      return left(Failure.requestTimeOut(message: "connection_error"));
+    }
+
+    FormData formData = new FormData.fromMap({
+      "name": name,
+      "email": email,
+      "password": password,
+      "phone_number": phoneNumber
+    });
+
+    // setting the headers
+    dio.options.headers['content-type'] = 'application/json';
+    dio.options.headers["accept"] = "application/json";
+
+    try {
+      Response response = await dio.post(Constants.SIGNUP_URL, data: formData);
+
+      final result = response.data;
+
+      Auth auth = Auth.fromJson(result);
+      print(auth.accessToken);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString(Constants.ACCESS_TOKEN_KEY, auth.accessToken);
+
+      return right(auth);
+    } on DioError catch (error) {
+      print(error);
+      if (error.response == null || error.response.statusCode == 502) {
+        return left(Failure.requestTimeOut(message: "server_error"));
+      }
+      if (error.response.statusCode == 401) {
+        return left(
+            Failure.wrongAuthCredintials(message: "email_already_used"));
       } else {
         return left(Failure.requestTimeOut(message: "server_error"));
       }

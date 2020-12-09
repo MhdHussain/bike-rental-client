@@ -6,6 +6,7 @@ import 'package:bikes_rental_client/state_management/auth/cubit/auth_cubit.dart'
 import 'package:bikes_rental_client/state_management/bike_list/bike_list_cubit.dart';
 import 'package:bikes_rental_client/utils/theme_colors.dart';
 import 'package:bikes_rental_client/widgets/action_button.dart';
+import 'package:bikes_rental_client/widgets/bike_booking_dialog.dart';
 import 'package:bikes_rental_client/widgets/failure_widget.dart';
 import 'package:bikes_rental_client/widgets/no_data.dart';
 import 'package:flutter/material.dart' hide Router;
@@ -26,11 +27,9 @@ class _BikeListPageState extends State<BikeListPage> {
   void initState() {
     context.read<BikeListCubit>().loadBikes();
     context.read<AuthCubit>().getAuthStatus();
- 
+
     super.initState();
   }
-
- 
 
   @override
   Widget build(BuildContext context) {
@@ -188,13 +187,20 @@ class _BikeListPageState extends State<BikeListPage> {
                       authenticated: (_) => ActionButton(
                         context: context,
                         text: translator.translate('book_now'),
-                        route: "Un implemented",
+                        onClick: () {
+                          showDialog(
+                              context: context,
+                              child: BikeBookingDialog(
+                                bike: bike,
+                              ));
+                        },
                         width: 150,
                       ),
                       unAuthenticated: (_) => ActionButton(
                         context: context,
                         text: translator.translate('login'),
-                        route: Routes.loginPage,
+                        onClick: () => ExtendedNavigator.of(context)
+                            .push(Routes.loginPage),
                         width: 150,
                       ),
                     );

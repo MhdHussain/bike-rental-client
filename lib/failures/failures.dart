@@ -13,6 +13,9 @@ abstract class Failure<T> with _$Failure<T>{
   const factory Failure.wrongAuthCredintials({@required String message}) =
       WrongAuthCredintials<T>;
 
+ const factory Failure.emailAlreadyInUse({@required String message}) =
+      EmailAlreadyInUse<T>;
+
   const factory Failure.userDisabled({@required String message}) =
       UserDisabled<T>;
   

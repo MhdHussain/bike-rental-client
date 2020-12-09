@@ -12,22 +12,22 @@ class LoginPage extends StatelessWidget {
   TextEditingController _email = new TextEditingController();
   TextEditingController _password = new TextEditingController();
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  
 
   @override
   Widget build(BuildContext context) {
     final translator = AppLocalizations.of(context);
     return new Scaffold(
-      key: _scaffoldKey,
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.blueGrey[900],
+   
+      
+      backgroundColor: ThemeColors.primary,
       appBar:
           PreferredSize(child: Container(), preferredSize: Size.fromHeight(0)),
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 30, horizontal: 30),
-        width: double.infinity,
-        height: double.infinity,
-        child: ListView(
+      body: 
+        ListView(
+          padding: EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+          shrinkWrap: true,
+          
           children: <Widget>[
             Spacer(),
             Container(
@@ -68,7 +68,7 @@ class LoginPage extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(
+            Container(
               height: 10,
             ),
             TextField(
@@ -103,7 +103,7 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            Container(height: 20),
             Container(
               width: double.infinity,
               height: 40,
@@ -120,6 +120,7 @@ class LoginPage extends StatelessWidget {
                 },
               ),
             ),
+            Container(height: 30,),
             Container(
               width: double.infinity,
               child: FlatButton(
@@ -128,13 +129,15 @@ class LoginPage extends StatelessWidget {
                   style: TextStyle(color: ThemeColors.accentDark),
                 ),
                 color: Colors.transparent,
-                onPressed: () {},
+                onPressed: () {
+                  ExtendedNavigator.of(context).push(Routes.signupPage);
+                },
               ),
             ),
             Spacer(),
           ],
         ),
-      ),
+      
     );
   }
 

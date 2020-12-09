@@ -1,4 +1,5 @@
 
+import 'package:auto_route/auto_route.dart';
 import 'package:bikes_rental_client/app_localizations.dart';
 import 'package:bikes_rental_client/routes/router.gr.dart';
 import 'package:bikes_rental_client/state_management/auth/cubit/auth_cubit.dart';
@@ -166,10 +167,11 @@ class _BikeDetailState extends State<BikeDetail> {
                       initial: (_) => Container(),
                       authenticated: (_) => ActionButton(context: context, 
                       text: translator.translate('book_now'), 
-                      route: "Un implemented" , width: 200,),
+                      onClick: (){} , width: 200,),
                       unAuthenticated: (_) => ActionButton(context: context, 
                       text: translator.translate('login'), 
-                      route: Routes.loginPage , width: 200,),
+                      onClick: () => ExtendedNavigator.of(context)
+                            .push(Routes.loginPage),  width: 200,),
                     );
                   },
                 )
