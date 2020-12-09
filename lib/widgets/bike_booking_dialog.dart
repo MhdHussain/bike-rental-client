@@ -19,6 +19,15 @@ class BikeBookingDialog extends StatefulWidget {
 class BikeBookingDialogState extends State<BikeBookingDialog> {
   int bikeCount = 1;
   int dayCount = 1;
+  double totalPrice = 0.0;
+  double unitPrice = 0.0;
+
+  @override
+  void initState() {
+    totalPrice = double.parse(widget.bike.price);
+    unitPrice = double.parse(widget.bike.price);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +89,134 @@ class BikeBookingDialogState extends State<BikeBookingDialog> {
                         style: CustomText.subhead(context)
                             .copyWith(color: ThemeColors.grey_20)),
                     Container(height: 20),
+                    Text(
+                      translator.translate('total_price') +
+                          " " +
+                          totalPrice.toString() + " " + translator.translate('sar'),
+                      style: TextStyle(color: ThemeColors.primaryLight),
+                    ),
+                    Container(height: 20),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 5,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              //  Text(translator.translate('bikes'),
+                              //           style: TextStyle(color: Colors.white)),
+                              IconButton(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 10),
+                                
+                                icon: 
+                                    Icon(
+                                      Icons.add,
+                                      color: Colors.white,
+                                    ),
+                                  
+                                
+                                
+                                onPressed: () {
+                                  if (bikeCount < widget.bike.quantity) {
+                                    setState(() {
+                                      bikeCount = bikeCount + 1;
+                                      totalPrice =
+                                          bikeCount  * dayCount * unitPrice;
+                                    });
+                                  }
+                                },
+                              ),
+                                IconButton(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 10),
+                                
+                                icon: 
+                                    Icon(
+                                      Icons.remove,
+                                      color: Colors.white,
+                                    ),
+                                  
+                                
+                                
+                                onPressed: () {
+                                  if (bikeCount < widget.bike.quantity) {
+                                    if(bikeCount > 1){
+                                      setState(() {
+                                      bikeCount = bikeCount - 1;
+                                      totalPrice =
+                                          bikeCount  * dayCount * unitPrice;
+                                    });
+                                    }
+                                  }
+                                },
+                              ),
+                              Text(bikeCount.toString() + " " + translator.translate('bikes'),
+                                  style: CustomText.title(context).copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                        ),
+                       
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 5,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              // Text(translator.translate('period_in_days'),
+                              //     style: TextStyle(color: Colors.white)),
+                              IconButton(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 10),
+                                // shape: RoundedRectangleBorder(
+                                //     borderRadius:
+                                //         new BorderRadius.circular(18.0)),
+                                icon: Icon(Icons.add, color: Colors.white),
+
+                                // color: ThemeColors.primaryLight,
+                                onPressed: () {
+                                  setState(() {
+                                    dayCount = dayCount + 1;
+                                    totalPrice =
+                                        bikeCount * totalPrice * dayCount;
+                                  });
+                                },
+                              ),
+                              IconButton(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 10),
+                                // shape: RoundedRectangleBorder(
+                                //     borderRadius:
+                                //         new BorderRadius.circular(18.0)),
+                                icon: Icon(Icons.remove, color: Colors.white),
+
+                                // color: ThemeColors.primaryLight,
+                                onPressed: () {
+                                  setState(() {
+                                    if (dayCount > 1) {
+                                      dayCount = dayCount - 1;
+                                      totalPrice = bikeCount *
+                                          dayCount *
+                                          unitPrice;
+                                    }
+                                  });
+                                },
+                              ),
+                              Text(dayCount.toString() + " " + translator.translate('days'),
+                                  style: CustomText.title(context).copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                        ),
+                       
+                      ],
+                    ),
                     FlatButton(
                       padding:
                           EdgeInsets.symmetric(vertical: 0, horizontal: 40),
@@ -89,103 +226,10 @@ class BikeBookingDialogState extends State<BikeBookingDialog> {
                         translator.translate('book_now'),
                         style: TextStyle(color: Colors.white),
                       ),
-                      color: ThemeColors.primaryLight,
+                      color: Colors.red[300],
                       onPressed: () {
                         // Toast.show("FOLLOW clicked", context);
                       },
-                    ),
-                    Container(height: 20),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          flex: 2,
-                          child: Column(
-                            children: <Widget>[
-                              FlatButton(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 0, horizontal: 40),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(18.0)),
-                                child: Row(
-                                  children: [
-                                    Text(translator.translate('bikes') , style: TextStyle(color: Colors.white)),
-                                    Icon(Icons.add , color: Colors.white,)
-                                  ],
-                                ),
-                                color: ThemeColors.primaryLight,
-                                onPressed: () {
-                                  if (bikeCount < widget.bike.quantity) {
-                                    setState(() {
-                                      bikeCount = bikeCount + 1;
-                                    });
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: <Widget>[
-                              Text(bikeCount.toString(),
-                                  style: CustomText.title(context).copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold)),
-                              // Container(height: 5),
-                              // Text("Following", style: MyText.medium(context).copyWith(color: MyColors.grey_20))
-                            ],
-                          ),
-                        ),
-                        
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                         Expanded(
-                          flex: 2,
-                          child: Column(
-                            children: <Widget>[
-                              FlatButton(
-                                
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 0, horizontal: 10),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(18.0)),
-                                child: Row(children: [
-                                  Text(translator.translate('period_in_days') , 
-                                  style: TextStyle(fontSize: 11 , color: Colors.white), ),
-                                  Icon(Icons.add , color: Colors.white)
-                                ],),
-                                color: ThemeColors.primaryLight,
-                                onPressed: () {
-                                  
-                                    setState(() {
-                                      dayCount = dayCount + 1;
-                                    });
-                                  
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: <Widget>[
-                              Text(dayCount.toString(),
-                                  style: CustomText.title(context).copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold)),
-                              // Container(height: 5),
-                              // Text("Following", style: MyText.medium(context).copyWith(color: MyColors.grey_20))
-                            ],
-                          ),
-                        ),
-                       
-                      ],
                     ),
                   ],
                 ),

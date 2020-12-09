@@ -8,6 +8,7 @@
   "no_bikes": "Sorry , We could not find any bikes near your location !",
   "tap_to_retry": "Tap to retry",
   "sar_per_day": " SAR / Day",
+  "sar": "SAR",
   "login": "Log In",
   "signup": "Sign Up",
   "email": "Email",
@@ -29,5 +30,6 @@
   "email_already_used": "There is an account already associated with the email you entered \nPlease sign in or use another email to signup",
   "available_bikes": "The amount of bikes available for rent is ",
   "bikes": "bikes",
-  "period_in_days": "Period (in days)"
+  "days": "Days",
+  "total_price": "Total Price"
 }
