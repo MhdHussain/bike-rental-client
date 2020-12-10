@@ -17,6 +17,7 @@ import '../repositories/bike_reepository.dart';
 import '../repositories/i_auth_repository.dart';
 import '../repositories/i_bike_repository.dart';
 import 'regester_modules.dart';
+import '../state_management/bike_list/rent/cubit/rent_cubit.dart';
 import '../state_management/auth/signin_form/cubit/signin_cubit.dart';
 import '../state_management/auth/signup_form/cubit/signup_cubit.dart';
 
@@ -40,6 +41,7 @@ GetIt $initGetIt(
         dio: get<Dio>(),
         location: get<Location>(),
       ));
+  gh.factory<RentCubit>(() => RentCubit(get<IBikeRepository>()));
   gh.factory<BikeListCubit>(() => BikeListCubit(get<IBikeRepository>()));
 
   // Eager singletons must be registered in the right order

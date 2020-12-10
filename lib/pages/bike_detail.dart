@@ -1,9 +1,13 @@
-
+import 'package:ars_progress_dialog/ars_progress_dialog.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:bikes_rental_client/app_localizations.dart';
 import 'package:bikes_rental_client/routes/router.gr.dart';
 import 'package:bikes_rental_client/state_management/auth/cubit/auth_cubit.dart';
+import 'package:bikes_rental_client/state_management/bike_list/bike_list_cubit.dart';
+import 'package:bikes_rental_client/state_management/bike_list/rent/cubit/rent_cubit.dart';
 import 'package:bikes_rental_client/widgets/action_button.dart';
+import 'package:bikes_rental_client/widgets/bike_booking_dialog.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bikes_rental_client/models/bikes/bike.dart';
@@ -13,9 +17,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../constants.dart';
 
 class BikeDetail extends StatefulWidget {
-  final Bike bike;
+  Bike bike;
   final Color bgColor;
-  const BikeDetail({
+  BikeDetail({
     Key key,
     this.bike,
     this.bgColor,
@@ -43,29 +47,80 @@ class _BikeDetailState extends State<BikeDetail> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+    final translator = AppLocalizations.of(context);
+    final progressDialog = ArsProgressDialog(
+      context,
+      blur: 2,
+      backgroundColor: Color(0x33000000),
+    );
+
+    return WillPopScope(
+      onWillPop: () {
+        // triggering reload of all bikes when popping to the main screen
+        // to get updated list of rented bikes
+        Navigator.of(context).pop();
+        context.read<BikeListCubit>().loadBikes();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: widget.bgColor,
+          elevation: 0,
+        ),
         backgroundColor: widget.bgColor,
-        elevation: 0,
-      ),
-      backgroundColor: widget.bgColor,
-      body: ListView(
-        children: <Widget>[
-          SizedBox(
-            height: 20,
+        body: BlocListener<RentCubit, RentState>(
+          listener: (context, state) {
+            state.maybeWhen(
+                orElse: () => progressDialog.dismiss(),
+                renting: () => progressDialog.show(),
+                failure: (message) {
+                  Flushbar(
+                    title: translator.translate('error'),
+                    message: translator.translate(message),
+                    icon: Icon(Icons.error_outline, color: Colors.white),
+                    backgroundColor: Colors.red,
+                    duration: Duration(seconds: 3),
+                  ).show(context).then((_) => progressDialog.dismiss());
+                },
+                success: (newBike) {
+                  setState(() {
+                    widget.bike = widget.bike.copyWith(quantity : newBike.quantity);
+                  });
+                  Flushbar(
+                    title: translator.translate('success'),
+                    message: translator.translate('rental_success'),
+                    icon: Icon(Icons.check, color: Colors.white),
+                    backgroundColor: Colors.green,
+                    duration: Duration(seconds: 3),
+                  ).show(context).then((_) {
+                    progressDialog.dismiss();
+                    // reload the page to show updated list
+                    // this avoids showing false number of bikes
+                    Navigator.of(context).pop();
+                    if (widget.bike.quantity <= 0) {
+                      Navigator.of(context).pop();
+                    }
+                  });
+                });
+          },
+          child: ListView(
+            children: <Widget>[
+              SizedBox(
+                height: 20,
+              ),
+              _imgHeader(widget.bike.photo.first.url),
+              _brandWidget(widget.bike.brand, widget.bike.description,
+                  widget.bike.height, widget.bgColor),
+              _price(widget.bike.price, context),
+              SizedBox(
+                height: 50,
+              ),
+              _specifications(widget.bike),
+              Expanded(
+                child: Container(),
+              ),
+            ],
           ),
-          _imgHeader(widget.bike.photo.first.url),
-          _brandWidget(widget.bike.brand, widget.bike.description,
-              widget.bike.height, widget.bgColor),
-          _price(widget.bike.price, context),
-          SizedBox(
-            height: 50,
-          ),
-          _specifications(widget.bike),
-          Expanded(
-            child: Container(),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -122,15 +177,17 @@ class _BikeDetailState extends State<BikeDetail> {
                   border: Border.all(width: .5, color: Colors.white)),
               child: Column(
                 children: [
-                  Icon(Icons.height , color: Colors.white,),
+                  Icon(
+                    Icons.height,
+                    color: Colors.white,
+                  ),
                   Text(
                     height.toString(),
-
-                    style: TextStyle(fontSize: 11 , color: Colors.white),
+                    style: TextStyle(fontSize: 11, color: Colors.white),
                   ),
                   Text(
                     "CM",
-                    style: TextStyle(fontSize: 11 , color: Colors.white),
+                    style: TextStyle(fontSize: 11, color: Colors.white),
                   ),
                 ],
               ))
@@ -161,20 +218,32 @@ class _BikeDetailState extends State<BikeDetail> {
         Expanded(
           child: Container(),
         ),
-         BlocBuilder<AuthCubit, AuthState>(
-                  builder: (context, state) {
-                    return state.map(
-                      initial: (_) => Container(),
-                      authenticated: (_) => ActionButton(context: context, 
-                      text: translator.translate('book_now'), 
-                      onClick: (){} , width: 200,),
-                      unAuthenticated: (_) => ActionButton(context: context, 
-                      text: translator.translate('login'), 
-                      onClick: () => ExtendedNavigator.of(context)
-                            .push(Routes.loginPage),  width: 200,),
-                    );
-                  },
-                )
+        BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, state) {
+            return state.map(
+              initial: (_) => Container(),
+              authenticated: (_) => ActionButton(
+                context: context,
+                text: translator.translate('book_now'),
+                onClick: () {
+                  showDialog(
+                      context: context,
+                      child: BikeBookingDialog(
+                        bike: widget.bike,
+                      ));
+                },
+                width: 200,
+              ),
+              unAuthenticated: (_) => ActionButton(
+                context: context,
+                text: translator.translate('login'),
+                onClick: () =>
+                    ExtendedNavigator.of(context).push(Routes.loginPage),
+                width: 200,
+              ),
+            );
+          },
+        )
       ],
     );
   }

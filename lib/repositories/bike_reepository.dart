@@ -29,11 +29,12 @@ class BikeRepository implements IBikeRepository {
 
     prefs = await SharedPreferences.getInstance();
 
-    if(prefs.getString(Constants.ACCESS_TOKEN_KEY) != null){
-      dio.options.headers["authorization"] =
-        "Bearer " + prefs.getString(Constants.ACCESS_TOKEN_KEY);
-    }
-    
+    dio.options.headers["authorization"] =
+          "Bearer " + prefs.getString(Constants.ACCESS_TOKEN_KEY);
+    // if (prefs.getString(Constants.ACCESS_TOKEN_KEY) != null) {
+      
+      
+    // }
   }
 
   @override
@@ -88,6 +89,36 @@ class BikeRepository implements IBikeRepository {
     } on DioError catch (error) {
       print(error);
       return left(Failure.requestTimeOut(message: "server_error"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Response>> rentBike(
+      Bike bike, int count, int period) async {
+    bool isConnected = await Checker.connectionStatus;
+    if (!isConnected) {
+      return left(Failure.requestTimeOut(message: "connection_error"));
+    }
+
+    FormData formData =
+        new FormData.fromMap({"count": count, "period": period});
+
+    try {
+      Response response = await dio.post(
+          Constants.API_URL + 'client/rent/' + bike.id.toString(),
+          data: formData);
+
+      return right(response);
+    } on DioError catch (error) {
+      print(error);
+      if (error.response == null || error.response.statusCode == 502) {
+        return left(Failure.requestTimeOut(message: "server_error"));
+      }
+      if (error.response.statusCode == 403) {
+        return left(Failure.wrongAuthCredintials(message: "limit_exceeded"));
+      } else {
+        return left(Failure.requestTimeOut(message: "server_error"));
+      }
     }
   }
 }

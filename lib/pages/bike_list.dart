@@ -1,14 +1,17 @@
+import 'package:ars_progress_dialog/ars_progress_dialog.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:bikes_rental_client/constants.dart';
 import 'package:bikes_rental_client/models/bikes/bike.dart';
 import 'package:bikes_rental_client/routes/router.gr.dart';
 import 'package:bikes_rental_client/state_management/auth/cubit/auth_cubit.dart';
 import 'package:bikes_rental_client/state_management/bike_list/bike_list_cubit.dart';
+import 'package:bikes_rental_client/state_management/bike_list/rent/cubit/rent_cubit.dart';
 import 'package:bikes_rental_client/utils/theme_colors.dart';
 import 'package:bikes_rental_client/widgets/action_button.dart';
 import 'package:bikes_rental_client/widgets/bike_booking_dialog.dart';
 import 'package:bikes_rental_client/widgets/failure_widget.dart';
 import 'package:bikes_rental_client/widgets/no_data.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart' hide Router;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,9 +34,15 @@ class _BikeListPageState extends State<BikeListPage> {
     super.initState();
   }
 
+  
   @override
   Widget build(BuildContext context) {
     final translator = AppLocalizations.of(context);
+    final customProgressDialog = ArsProgressDialog(
+      context,
+      blur: 2,
+      backgroundColor: Color(0x33000000),
+    );
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -41,7 +50,7 @@ class _BikeListPageState extends State<BikeListPage> {
         title: Text(translator.translate('app_title')),
       ),
       body:
-          BlocConsumer<BikeListCubit, BikeListState>(builder: (context, state) {
+          BlocBuilder<BikeListCubit, BikeListState>(builder: (context, state) {
         return state.maybeWhen(
           orElse: () => Container(),
           loading: () => Center(
@@ -63,25 +72,55 @@ class _BikeListPageState extends State<BikeListPage> {
           loaded: (bikes) => SafeArea(
               // child: SingleChildScrollView(
 
-              child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              final bike = bikes[index];
-              print(bike.photo.first.url);
-              return _bikeCard(
-                  bike: bike,
-                  color: index % 2 == 0
-                      ? ThemeColors.primary
-                      : ThemeColors.primaryLight,
-                  context: context);
+            child: BlocListener<RentCubit, RentState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                  orElse: () => customProgressDialog.dismiss(),
+                  renting: () => customProgressDialog.show(),
+                  failure: (message) {
+                    Flushbar(
+                      title: translator.translate('error'),
+                      message: translator.translate(message),
+                      icon: Icon(Icons.error_outline, color: Colors.white),
+                      backgroundColor: Colors.red,
+                      duration: Duration(seconds: 3),
+                    )
+                        .show(context)
+                        .then((value) => customProgressDialog.dismiss());
+                  },
+                  success: (bike) {
+                  
+                    Flushbar(
+                      title: translator.translate('success'),
+                      message: translator.translate('rental_success'),
+                      icon: Icon(Icons.check, color: Colors.white),
+                      backgroundColor: Colors.green,
+                      duration: Duration(seconds: 3),
+                    ).show(context).then((_) {
+                      customProgressDialog.dismiss();
+                      // reload the page to show updated list
+                      // this avoids showing false number of bikes
+                      context.read<BikeListCubit>().loadBikes();
+                    });
+                  });
             },
-            itemCount: bikes.length,
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                final bike = bikes[index];
+                print(bike.photo.first.url);
+                return _bikeCard(
+                    bike: bike,
+                    color: index % 2 == 0
+                        ? ThemeColors.grey_40 
+                        : ThemeColors.primaryLight,
+                    context: context);
+              },
+              itemCount: bikes.length,
+            ),
           )),
         );
-      }, listener: (context, state) {
-        //
-        return null;
       }),
     );
   }

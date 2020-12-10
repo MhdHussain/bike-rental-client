@@ -1,13 +1,14 @@
 import 'package:bikes_rental_client/app_localizations.dart';
+import 'package:bikes_rental_client/state_management/bike_list/rent/cubit/rent_cubit.dart';
 import 'package:bikes_rental_client/utils/custom_text.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bikes_rental_client/models/bikes/bike.dart';
 import 'package:bikes_rental_client/utils/theme_colors.dart';
 
 class BikeBookingDialog extends StatefulWidget {
-  final Bike bike;
-  const BikeBookingDialog({
+  Bike bike;
+  BikeBookingDialog({
     Key key,
     this.bike,
   }) : super(key: key);
@@ -92,7 +93,9 @@ class BikeBookingDialogState extends State<BikeBookingDialog> {
                     Text(
                       translator.translate('total_price') +
                           " " +
-                          totalPrice.toString() + " " + translator.translate('sar'),
+                          totalPrice.toString() +
+                          " " +
+                          translator.translate('sar'),
                       style: TextStyle(color: ThemeColors.primaryLight),
                     ),
                     Container(height: 20),
@@ -108,57 +111,49 @@ class BikeBookingDialogState extends State<BikeBookingDialog> {
                               IconButton(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 0, horizontal: 10),
-                                
-                                icon: 
-                                    Icon(
-                                      Icons.add,
-                                      color: Colors.white,
-                                    ),
-                                  
-                                
-                                
+                                icon: Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                ),
                                 onPressed: () {
                                   if (bikeCount < widget.bike.quantity) {
                                     setState(() {
                                       bikeCount = bikeCount + 1;
                                       totalPrice =
-                                          bikeCount  * dayCount * unitPrice;
+                                          bikeCount * dayCount * unitPrice;
                                     });
                                   }
                                 },
                               ),
-                                IconButton(
+                              IconButton(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 0, horizontal: 10),
-                                
-                                icon: 
-                                    Icon(
-                                      Icons.remove,
-                                      color: Colors.white,
-                                    ),
-                                  
-                                
-                                
+                                icon: Icon(
+                                  Icons.remove,
+                                  color: Colors.white,
+                                ),
                                 onPressed: () {
                                   if (bikeCount < widget.bike.quantity) {
-                                    if(bikeCount > 1){
+                                    if (bikeCount > 1) {
                                       setState(() {
-                                      bikeCount = bikeCount - 1;
-                                      totalPrice =
-                                          bikeCount  * dayCount * unitPrice;
-                                    });
+                                        bikeCount = bikeCount - 1;
+                                        totalPrice =
+                                            bikeCount * dayCount * unitPrice;
+                                      });
                                     }
                                   }
                                 },
                               ),
-                              Text(bikeCount.toString() + " " + translator.translate('bikes'),
+                              Text(
+                                  bikeCount.toString() +
+                                      " " +
+                                      translator.translate('bikes'),
                                   style: CustomText.title(context).copyWith(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold)),
                             ],
                           ),
                         ),
-                       
                       ],
                     ),
                     Row(
@@ -168,14 +163,10 @@ class BikeBookingDialogState extends State<BikeBookingDialog> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              // Text(translator.translate('period_in_days'),
-                              //     style: TextStyle(color: Colors.white)),
                               IconButton(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 0, horizontal: 10),
-                                // shape: RoundedRectangleBorder(
-                                //     borderRadius:
-                                //         new BorderRadius.circular(18.0)),
+
                                 icon: Icon(Icons.add, color: Colors.white),
 
                                 // color: ThemeColors.primaryLight,
@@ -183,38 +174,34 @@ class BikeBookingDialogState extends State<BikeBookingDialog> {
                                   setState(() {
                                     dayCount = dayCount + 1;
                                     totalPrice =
-                                        bikeCount * totalPrice * dayCount;
+                                        bikeCount * dayCount * unitPrice;
                                   });
                                 },
                               ),
                               IconButton(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 0, horizontal: 10),
-                                // shape: RoundedRectangleBorder(
-                                //     borderRadius:
-                                //         new BorderRadius.circular(18.0)),
                                 icon: Icon(Icons.remove, color: Colors.white),
-
-                                // color: ThemeColors.primaryLight,
                                 onPressed: () {
                                   setState(() {
                                     if (dayCount > 1) {
                                       dayCount = dayCount - 1;
-                                      totalPrice = bikeCount *
-                                          dayCount *
-                                          unitPrice;
+                                      totalPrice =
+                                          bikeCount * dayCount * unitPrice;
                                     }
                                   });
                                 },
                               ),
-                              Text(dayCount.toString() + " " + translator.translate('days'),
+                              Text(
+                                  dayCount.toString() +
+                                      " " +
+                                      translator.translate('days'),
                                   style: CustomText.title(context).copyWith(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold)),
                             ],
                           ),
                         ),
-                       
                       ],
                     ),
                     FlatButton(
@@ -228,7 +215,9 @@ class BikeBookingDialogState extends State<BikeBookingDialog> {
                       ),
                       color: Colors.red[300],
                       onPressed: () {
-                        // Toast.show("FOLLOW clicked", context);
+                        rent(context, widget.bike, bikeCount, dayCount);
+                        
+                        Navigator.pop(context);
                       },
                     ),
                   ],
@@ -240,5 +229,11 @@ class BikeBookingDialogState extends State<BikeBookingDialog> {
         ),
       ),
     );
+  }
+
+  void rent(BuildContext context, Bike bike, int count, int period) {
+    final rentCubit = context.bloc<RentCubit>();
+
+    rentCubit.rentBike(bike: bike, count: count, period: period);
   }
 }
