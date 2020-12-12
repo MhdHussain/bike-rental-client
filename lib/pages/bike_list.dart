@@ -172,7 +172,7 @@ class _BikeListPageState extends State<BikeListPage> {
         decoration: BoxDecoration(
             color: color.withOpacity(0.7),
             borderRadius: BorderRadius.circular(50)),
-        height: 400,
+        height: 420,
         width: double.infinity,
         child: Column(
           children: <Widget>[
@@ -236,6 +236,7 @@ class _BikeListPageState extends State<BikeListPage> {
               child: Container(),
             ),
             Row(
+              
               children: <Widget>[
                 GestureDetector(
                   onTap: () {

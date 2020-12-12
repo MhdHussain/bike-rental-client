@@ -30,11 +30,11 @@ class BikeRepository implements IBikeRepository {
 
     prefs = await SharedPreferences.getInstance();
 
-    dio.options.headers["authorization"] =
+   
+    if (prefs.getString(Constants.ACCESS_TOKEN_KEY) != null) {
+        dio.options.headers["authorization"] =
         "Bearer " + prefs.getString(Constants.ACCESS_TOKEN_KEY);
-    // if (prefs.getString(Constants.ACCESS_TOKEN_KEY) != null) {
-
-    // }
+    }
   }
 
   @override
