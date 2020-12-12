@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route_annotations.dart';
 import 'package:bikes_rental_client/pages/bike_detail.dart';
 import 'package:bikes_rental_client/pages/bike_list.dart';
 import 'package:bikes_rental_client/pages/login.dart';
+import 'package:bikes_rental_client/pages/rented_list.dart';
 import 'package:bikes_rental_client/pages/signup.dart';
 import 'package:bikes_rental_client/pages/splash_page.dart';
 
@@ -11,5 +12,6 @@ import 'package:bikes_rental_client/pages/splash_page.dart';
   MaterialRoute(page: BikeDetail ),
   MaterialRoute(page: LoginPage ),
   MaterialRoute(page: SignupPage ),
+  MaterialRoute(page: RentedList ),
 ])
 class $Router {}

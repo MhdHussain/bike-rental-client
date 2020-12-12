@@ -42,6 +42,13 @@ class _$FailureTearOff {
   }
 
 // ignore: unused_element
+  LimitExceeded<T> limitExceeded<T>({@required String message}) {
+    return LimitExceeded<T>(
+      message: message,
+    );
+  }
+
+// ignore: unused_element
   LocationError<T> locationError<T>({@required String message}) {
     return LocationError<T>(
       message: message,
@@ -71,6 +78,7 @@ mixin _$Failure<T> {
     @required TResult wrongAuthCredintials(String message),
     @required TResult emailAlreadyInUse(String message),
     @required TResult userDisabled(String message),
+    @required TResult limitExceeded(String message),
     @required TResult locationError(String message),
     @required TResult locationServiceDisabled(String message),
   });
@@ -80,6 +88,7 @@ mixin _$Failure<T> {
     TResult wrongAuthCredintials(String message),
     TResult emailAlreadyInUse(String message),
     TResult userDisabled(String message),
+    TResult limitExceeded(String message),
     TResult locationError(String message),
     TResult locationServiceDisabled(String message),
     @required TResult orElse(),
@@ -90,6 +99,7 @@ mixin _$Failure<T> {
     @required TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
     @required TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     @required TResult userDisabled(UserDisabled<T> value),
+    @required TResult limitExceeded(LimitExceeded<T> value),
     @required TResult locationError(LocationError<T> value),
     @required TResult locationServiceDisabled(LocationServiceDisabled<T> value),
   });
@@ -99,6 +109,7 @@ mixin _$Failure<T> {
     TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
     TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     TResult userDisabled(UserDisabled<T> value),
+    TResult limitExceeded(LimitExceeded<T> value),
     TResult locationError(LocationError<T> value),
     TResult locationServiceDisabled(LocationServiceDisabled<T> value),
     @required TResult orElse(),
@@ -198,6 +209,7 @@ class _$RequestTimeOut<T> implements RequestTimeOut<T> {
     @required TResult wrongAuthCredintials(String message),
     @required TResult emailAlreadyInUse(String message),
     @required TResult userDisabled(String message),
+    @required TResult limitExceeded(String message),
     @required TResult locationError(String message),
     @required TResult locationServiceDisabled(String message),
   }) {
@@ -205,6 +217,7 @@ class _$RequestTimeOut<T> implements RequestTimeOut<T> {
     assert(wrongAuthCredintials != null);
     assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
+    assert(limitExceeded != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
     return requestTimeOut(message);
@@ -217,6 +230,7 @@ class _$RequestTimeOut<T> implements RequestTimeOut<T> {
     TResult wrongAuthCredintials(String message),
     TResult emailAlreadyInUse(String message),
     TResult userDisabled(String message),
+    TResult limitExceeded(String message),
     TResult locationError(String message),
     TResult locationServiceDisabled(String message),
     @required TResult orElse(),
@@ -235,6 +249,7 @@ class _$RequestTimeOut<T> implements RequestTimeOut<T> {
     @required TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
     @required TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     @required TResult userDisabled(UserDisabled<T> value),
+    @required TResult limitExceeded(LimitExceeded<T> value),
     @required TResult locationError(LocationError<T> value),
     @required TResult locationServiceDisabled(LocationServiceDisabled<T> value),
   }) {
@@ -242,6 +257,7 @@ class _$RequestTimeOut<T> implements RequestTimeOut<T> {
     assert(wrongAuthCredintials != null);
     assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
+    assert(limitExceeded != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
     return requestTimeOut(this);
@@ -254,6 +270,7 @@ class _$RequestTimeOut<T> implements RequestTimeOut<T> {
     TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
     TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     TResult userDisabled(UserDisabled<T> value),
+    TResult limitExceeded(LimitExceeded<T> value),
     TResult locationError(LocationError<T> value),
     TResult locationServiceDisabled(LocationServiceDisabled<T> value),
     @required TResult orElse(),
@@ -344,6 +361,7 @@ class _$WrongAuthCredintials<T> implements WrongAuthCredintials<T> {
     @required TResult wrongAuthCredintials(String message),
     @required TResult emailAlreadyInUse(String message),
     @required TResult userDisabled(String message),
+    @required TResult limitExceeded(String message),
     @required TResult locationError(String message),
     @required TResult locationServiceDisabled(String message),
   }) {
@@ -351,6 +369,7 @@ class _$WrongAuthCredintials<T> implements WrongAuthCredintials<T> {
     assert(wrongAuthCredintials != null);
     assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
+    assert(limitExceeded != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
     return wrongAuthCredintials(message);
@@ -363,6 +382,7 @@ class _$WrongAuthCredintials<T> implements WrongAuthCredintials<T> {
     TResult wrongAuthCredintials(String message),
     TResult emailAlreadyInUse(String message),
     TResult userDisabled(String message),
+    TResult limitExceeded(String message),
     TResult locationError(String message),
     TResult locationServiceDisabled(String message),
     @required TResult orElse(),
@@ -381,6 +401,7 @@ class _$WrongAuthCredintials<T> implements WrongAuthCredintials<T> {
     @required TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
     @required TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     @required TResult userDisabled(UserDisabled<T> value),
+    @required TResult limitExceeded(LimitExceeded<T> value),
     @required TResult locationError(LocationError<T> value),
     @required TResult locationServiceDisabled(LocationServiceDisabled<T> value),
   }) {
@@ -388,6 +409,7 @@ class _$WrongAuthCredintials<T> implements WrongAuthCredintials<T> {
     assert(wrongAuthCredintials != null);
     assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
+    assert(limitExceeded != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
     return wrongAuthCredintials(this);
@@ -400,6 +422,7 @@ class _$WrongAuthCredintials<T> implements WrongAuthCredintials<T> {
     TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
     TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     TResult userDisabled(UserDisabled<T> value),
+    TResult limitExceeded(LimitExceeded<T> value),
     TResult locationError(LocationError<T> value),
     TResult locationServiceDisabled(LocationServiceDisabled<T> value),
     @required TResult orElse(),
@@ -489,6 +512,7 @@ class _$EmailAlreadyInUse<T> implements EmailAlreadyInUse<T> {
     @required TResult wrongAuthCredintials(String message),
     @required TResult emailAlreadyInUse(String message),
     @required TResult userDisabled(String message),
+    @required TResult limitExceeded(String message),
     @required TResult locationError(String message),
     @required TResult locationServiceDisabled(String message),
   }) {
@@ -496,6 +520,7 @@ class _$EmailAlreadyInUse<T> implements EmailAlreadyInUse<T> {
     assert(wrongAuthCredintials != null);
     assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
+    assert(limitExceeded != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
     return emailAlreadyInUse(message);
@@ -508,6 +533,7 @@ class _$EmailAlreadyInUse<T> implements EmailAlreadyInUse<T> {
     TResult wrongAuthCredintials(String message),
     TResult emailAlreadyInUse(String message),
     TResult userDisabled(String message),
+    TResult limitExceeded(String message),
     TResult locationError(String message),
     TResult locationServiceDisabled(String message),
     @required TResult orElse(),
@@ -526,6 +552,7 @@ class _$EmailAlreadyInUse<T> implements EmailAlreadyInUse<T> {
     @required TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
     @required TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     @required TResult userDisabled(UserDisabled<T> value),
+    @required TResult limitExceeded(LimitExceeded<T> value),
     @required TResult locationError(LocationError<T> value),
     @required TResult locationServiceDisabled(LocationServiceDisabled<T> value),
   }) {
@@ -533,6 +560,7 @@ class _$EmailAlreadyInUse<T> implements EmailAlreadyInUse<T> {
     assert(wrongAuthCredintials != null);
     assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
+    assert(limitExceeded != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
     return emailAlreadyInUse(this);
@@ -545,6 +573,7 @@ class _$EmailAlreadyInUse<T> implements EmailAlreadyInUse<T> {
     TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
     TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     TResult userDisabled(UserDisabled<T> value),
+    TResult limitExceeded(LimitExceeded<T> value),
     TResult locationError(LocationError<T> value),
     TResult locationServiceDisabled(LocationServiceDisabled<T> value),
     @required TResult orElse(),
@@ -632,6 +661,7 @@ class _$UserDisabled<T> implements UserDisabled<T> {
     @required TResult wrongAuthCredintials(String message),
     @required TResult emailAlreadyInUse(String message),
     @required TResult userDisabled(String message),
+    @required TResult limitExceeded(String message),
     @required TResult locationError(String message),
     @required TResult locationServiceDisabled(String message),
   }) {
@@ -639,6 +669,7 @@ class _$UserDisabled<T> implements UserDisabled<T> {
     assert(wrongAuthCredintials != null);
     assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
+    assert(limitExceeded != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
     return userDisabled(message);
@@ -651,6 +682,7 @@ class _$UserDisabled<T> implements UserDisabled<T> {
     TResult wrongAuthCredintials(String message),
     TResult emailAlreadyInUse(String message),
     TResult userDisabled(String message),
+    TResult limitExceeded(String message),
     TResult locationError(String message),
     TResult locationServiceDisabled(String message),
     @required TResult orElse(),
@@ -669,6 +701,7 @@ class _$UserDisabled<T> implements UserDisabled<T> {
     @required TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
     @required TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     @required TResult userDisabled(UserDisabled<T> value),
+    @required TResult limitExceeded(LimitExceeded<T> value),
     @required TResult locationError(LocationError<T> value),
     @required TResult locationServiceDisabled(LocationServiceDisabled<T> value),
   }) {
@@ -676,6 +709,7 @@ class _$UserDisabled<T> implements UserDisabled<T> {
     assert(wrongAuthCredintials != null);
     assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
+    assert(limitExceeded != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
     return userDisabled(this);
@@ -688,6 +722,7 @@ class _$UserDisabled<T> implements UserDisabled<T> {
     TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
     TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     TResult userDisabled(UserDisabled<T> value),
+    TResult limitExceeded(LimitExceeded<T> value),
     TResult locationError(LocationError<T> value),
     TResult locationServiceDisabled(LocationServiceDisabled<T> value),
     @required TResult orElse(),
@@ -707,6 +742,155 @@ abstract class UserDisabled<T> implements Failure<T> {
   String get message;
   @override
   $UserDisabledCopyWith<T, UserDisabled<T>> get copyWith;
+}
+
+/// @nodoc
+abstract class $LimitExceededCopyWith<T, $Res>
+    implements $FailureCopyWith<T, $Res> {
+  factory $LimitExceededCopyWith(
+          LimitExceeded<T> value, $Res Function(LimitExceeded<T>) then) =
+      _$LimitExceededCopyWithImpl<T, $Res>;
+  @override
+  $Res call({String message});
+}
+
+/// @nodoc
+class _$LimitExceededCopyWithImpl<T, $Res>
+    extends _$FailureCopyWithImpl<T, $Res>
+    implements $LimitExceededCopyWith<T, $Res> {
+  _$LimitExceededCopyWithImpl(
+      LimitExceeded<T> _value, $Res Function(LimitExceeded<T>) _then)
+      : super(_value, (v) => _then(v as LimitExceeded<T>));
+
+  @override
+  LimitExceeded<T> get _value => super._value as LimitExceeded<T>;
+
+  @override
+  $Res call({
+    Object message = freezed,
+  }) {
+    return _then(LimitExceeded<T>(
+      message: message == freezed ? _value.message : message as String,
+    ));
+  }
+}
+
+/// @nodoc
+class _$LimitExceeded<T> implements LimitExceeded<T> {
+  const _$LimitExceeded({@required this.message}) : assert(message != null);
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'Failure<$T>.limitExceeded(message: $message)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is LimitExceeded<T> &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality().equals(other.message, message)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(message);
+
+  @override
+  $LimitExceededCopyWith<T, LimitExceeded<T>> get copyWith =>
+      _$LimitExceededCopyWithImpl<T, LimitExceeded<T>>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult requestTimeOut(String message),
+    @required TResult wrongAuthCredintials(String message),
+    @required TResult emailAlreadyInUse(String message),
+    @required TResult userDisabled(String message),
+    @required TResult limitExceeded(String message),
+    @required TResult locationError(String message),
+    @required TResult locationServiceDisabled(String message),
+  }) {
+    assert(requestTimeOut != null);
+    assert(wrongAuthCredintials != null);
+    assert(emailAlreadyInUse != null);
+    assert(userDisabled != null);
+    assert(limitExceeded != null);
+    assert(locationError != null);
+    assert(locationServiceDisabled != null);
+    return limitExceeded(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult requestTimeOut(String message),
+    TResult wrongAuthCredintials(String message),
+    TResult emailAlreadyInUse(String message),
+    TResult userDisabled(String message),
+    TResult limitExceeded(String message),
+    TResult locationError(String message),
+    TResult locationServiceDisabled(String message),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (limitExceeded != null) {
+      return limitExceeded(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult requestTimeOut(RequestTimeOut<T> value),
+    @required TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
+    @required TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
+    @required TResult userDisabled(UserDisabled<T> value),
+    @required TResult limitExceeded(LimitExceeded<T> value),
+    @required TResult locationError(LocationError<T> value),
+    @required TResult locationServiceDisabled(LocationServiceDisabled<T> value),
+  }) {
+    assert(requestTimeOut != null);
+    assert(wrongAuthCredintials != null);
+    assert(emailAlreadyInUse != null);
+    assert(userDisabled != null);
+    assert(limitExceeded != null);
+    assert(locationError != null);
+    assert(locationServiceDisabled != null);
+    return limitExceeded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult requestTimeOut(RequestTimeOut<T> value),
+    TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
+    TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
+    TResult userDisabled(UserDisabled<T> value),
+    TResult limitExceeded(LimitExceeded<T> value),
+    TResult locationError(LocationError<T> value),
+    TResult locationServiceDisabled(LocationServiceDisabled<T> value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (limitExceeded != null) {
+      return limitExceeded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LimitExceeded<T> implements Failure<T> {
+  const factory LimitExceeded({@required String message}) = _$LimitExceeded<T>;
+
+  @override
+  String get message;
+  @override
+  $LimitExceededCopyWith<T, LimitExceeded<T>> get copyWith;
 }
 
 /// @nodoc
@@ -775,6 +959,7 @@ class _$LocationError<T> implements LocationError<T> {
     @required TResult wrongAuthCredintials(String message),
     @required TResult emailAlreadyInUse(String message),
     @required TResult userDisabled(String message),
+    @required TResult limitExceeded(String message),
     @required TResult locationError(String message),
     @required TResult locationServiceDisabled(String message),
   }) {
@@ -782,6 +967,7 @@ class _$LocationError<T> implements LocationError<T> {
     assert(wrongAuthCredintials != null);
     assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
+    assert(limitExceeded != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
     return locationError(message);
@@ -794,6 +980,7 @@ class _$LocationError<T> implements LocationError<T> {
     TResult wrongAuthCredintials(String message),
     TResult emailAlreadyInUse(String message),
     TResult userDisabled(String message),
+    TResult limitExceeded(String message),
     TResult locationError(String message),
     TResult locationServiceDisabled(String message),
     @required TResult orElse(),
@@ -812,6 +999,7 @@ class _$LocationError<T> implements LocationError<T> {
     @required TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
     @required TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     @required TResult userDisabled(UserDisabled<T> value),
+    @required TResult limitExceeded(LimitExceeded<T> value),
     @required TResult locationError(LocationError<T> value),
     @required TResult locationServiceDisabled(LocationServiceDisabled<T> value),
   }) {
@@ -819,6 +1007,7 @@ class _$LocationError<T> implements LocationError<T> {
     assert(wrongAuthCredintials != null);
     assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
+    assert(limitExceeded != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
     return locationError(this);
@@ -831,6 +1020,7 @@ class _$LocationError<T> implements LocationError<T> {
     TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
     TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     TResult userDisabled(UserDisabled<T> value),
+    TResult limitExceeded(LimitExceeded<T> value),
     TResult locationError(LocationError<T> value),
     TResult locationServiceDisabled(LocationServiceDisabled<T> value),
     @required TResult orElse(),
@@ -922,6 +1112,7 @@ class _$LocationServiceDisabled<T> implements LocationServiceDisabled<T> {
     @required TResult wrongAuthCredintials(String message),
     @required TResult emailAlreadyInUse(String message),
     @required TResult userDisabled(String message),
+    @required TResult limitExceeded(String message),
     @required TResult locationError(String message),
     @required TResult locationServiceDisabled(String message),
   }) {
@@ -929,6 +1120,7 @@ class _$LocationServiceDisabled<T> implements LocationServiceDisabled<T> {
     assert(wrongAuthCredintials != null);
     assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
+    assert(limitExceeded != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
     return locationServiceDisabled(message);
@@ -941,6 +1133,7 @@ class _$LocationServiceDisabled<T> implements LocationServiceDisabled<T> {
     TResult wrongAuthCredintials(String message),
     TResult emailAlreadyInUse(String message),
     TResult userDisabled(String message),
+    TResult limitExceeded(String message),
     TResult locationError(String message),
     TResult locationServiceDisabled(String message),
     @required TResult orElse(),
@@ -959,6 +1152,7 @@ class _$LocationServiceDisabled<T> implements LocationServiceDisabled<T> {
     @required TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
     @required TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     @required TResult userDisabled(UserDisabled<T> value),
+    @required TResult limitExceeded(LimitExceeded<T> value),
     @required TResult locationError(LocationError<T> value),
     @required TResult locationServiceDisabled(LocationServiceDisabled<T> value),
   }) {
@@ -966,6 +1160,7 @@ class _$LocationServiceDisabled<T> implements LocationServiceDisabled<T> {
     assert(wrongAuthCredintials != null);
     assert(emailAlreadyInUse != null);
     assert(userDisabled != null);
+    assert(limitExceeded != null);
     assert(locationError != null);
     assert(locationServiceDisabled != null);
     return locationServiceDisabled(this);
@@ -978,6 +1173,7 @@ class _$LocationServiceDisabled<T> implements LocationServiceDisabled<T> {
     TResult wrongAuthCredintials(WrongAuthCredintials<T> value),
     TResult emailAlreadyInUse(EmailAlreadyInUse<T> value),
     TResult userDisabled(UserDisabled<T> value),
+    TResult limitExceeded(LimitExceeded<T> value),
     TResult locationError(LocationError<T> value),
     TResult locationServiceDisabled(LocationServiceDisabled<T> value),
     @required TResult orElse(),

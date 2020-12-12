@@ -99,6 +99,8 @@ class _BikeDetailState extends State<BikeDetail> {
                     if (widget.bike.quantity <= 0) {
                       Navigator.of(context).pop();
                     }
+                    context.read<BikeListCubit>().loadBikes();
+                    ExtendedNavigator.of(context).push(Routes.rentedList);
                   });
                 });
           },

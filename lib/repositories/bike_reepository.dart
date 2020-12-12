@@ -1,5 +1,6 @@
 import 'package:bikes_rental_client/failures/failures.dart';
 import 'package:bikes_rental_client/models/bikes/bike.dart';
+import 'package:bikes_rental_client/models/rental/rental.dart';
 import 'package:bikes_rental_client/repositories/i_bike_repository.dart';
 import 'package:bikes_rental_client/utils/connection_checker.dart';
 import 'package:bikes_rental_client/utils/distance_calculator.dart';
@@ -30,15 +31,14 @@ class BikeRepository implements IBikeRepository {
     prefs = await SharedPreferences.getInstance();
 
     dio.options.headers["authorization"] =
-          "Bearer " + prefs.getString(Constants.ACCESS_TOKEN_KEY);
+        "Bearer " + prefs.getString(Constants.ACCESS_TOKEN_KEY);
     // if (prefs.getString(Constants.ACCESS_TOKEN_KEY) != null) {
-      
-      
+
     // }
   }
 
   @override
-  Future<Either<Failure, List<Bike>>> getNearbyBikes() async {
+  Future<Either<Failure, List<dynamic>>> getNearbyBikes() async {
     // check if connected
     bool isConnected = await Checker.connectionStatus;
     if (!isConnected) {
@@ -115,7 +115,58 @@ class BikeRepository implements IBikeRepository {
         return left(Failure.requestTimeOut(message: "server_error"));
       }
       if (error.response.statusCode == 403) {
-        return left(Failure.wrongAuthCredintials(message: "limit_exceeded"));
+        return left(Failure.limitExceeded(message: "limit_exceeded"));
+      } else {
+        return left(Failure.requestTimeOut(message: "server_error"));
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<dynamic>>> getRentedBikes() async {
+    bool isConnected = await Checker.connectionStatus;
+    if (!isConnected) {
+      return left(Failure.requestTimeOut(message: "connection_error"));
+    }
+
+    try {
+      Response<List<dynamic>> response =
+          await dio.get(Constants.API_URL + 'client/rented');
+
+      print("REESULT");
+      print(response);
+      final result = response.data;
+      // if (result.length == 0) {
+      //   return right(result);
+      // }
+      final rentals = result
+          .map((rental) => Rental.fromJson(rental as Map<String, dynamic>))
+          .toList();
+      return right(rentals);
+    } on DioError catch (error) {
+      print(error.message);
+      if (error.response.statusCode == 403) {
+        return left(Failure.userDisabled(message: "user_disabled"));
+      }
+      return left(Failure.requestTimeOut(message: "server_error"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Response>> returnBike(Rental rental) async {
+    bool isConnected = await Checker.connectionStatus;
+    if (!isConnected) {
+      return left(Failure.requestTimeOut(message: "connection_error"));
+    }
+
+    try {
+      Response response = await dio
+          .post(Constants.API_URL + 'client/return/' + rental.id.toString());
+
+      return right(response);
+    } on DioError catch (error) {
+      if (error.response.statusCode == 403) {
+        return left(Failure.userDisabled(message: "user_disabled"));
       } else {
         return left(Failure.requestTimeOut(message: "server_error"));
       }

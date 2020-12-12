@@ -19,6 +19,10 @@ abstract class Failure<T> with _$Failure<T>{
   const factory Failure.userDisabled({@required String message}) =
       UserDisabled<T>;
   
+
+  const factory Failure.limitExceeded({@required String message}) =
+      LimitExceeded<T>;
+  
   const factory Failure.locationError({@required String message}) =
       LocationError<T>;
 

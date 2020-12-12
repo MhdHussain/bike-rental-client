@@ -34,5 +34,10 @@
   "total_price": "Total Price",
   "limit_exceeded": "The amount of bikes entered is larger than the amount of bikes available for rent",
   "Sucess": "Success",
-  "rental_success": "The bike was booked successfully, please waite for the owner's approval"
+  "rental_success": "The bike was booked successfully, please waite for the owner's approval",
+  "no_rentals": "You have not rented any bikes yet.",
+  "rental_period": "Rental Period ",
+  "return": "Return",
+  "return_success": "Bike returned Successfully",
+  "please_login": "Please login to view the list of rented bikes"
 }

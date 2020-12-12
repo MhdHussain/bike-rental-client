@@ -24,8 +24,6 @@ class BikeListPage extends StatefulWidget {
 }
 
 class _BikeListPageState extends State<BikeListPage> {
-  bool isLoggedIn;
-
   @override
   void initState() {
     context.read<BikeListCubit>().loadBikes();
@@ -34,7 +32,11 @@ class _BikeListPageState extends State<BikeListPage> {
     super.initState();
   }
 
-  
+  Future<bool> isLoggedIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(Constants.ACCESS_TOKEN_KEY) != null;
+  }
+
   @override
   Widget build(BuildContext context) {
     final translator = AppLocalizations.of(context);
@@ -46,82 +48,114 @@ class _BikeListPageState extends State<BikeListPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: ThemeColors.primary,
-        title: Text(translator.translate('app_title')),
+        backgroundColor: Colors.transparent,
+        flexibleSpace: Image(
+          image: AssetImage('assets/white-waves.png'),
+          fit: BoxFit.cover,
+        ),
+        elevation: 0,
+        title: Icon(
+          Icons.electric_bike,
+          color: ThemeColors.primary,
+        ),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.list, color: ThemeColors.primary),
+              onPressed: () async{
+                if (await isLoggedIn()) {
+                  ExtendedNavigator.of(context).push(Routes.rentedList);
+                } else {
+                  Flushbar(
+                    title: translator.translate('error'),
+                    message: translator.translate('please_login'),
+                    flushbarPosition: FlushbarPosition.TOP,
+                    icon: Icon(Icons.warning),
+                    duration: Duration(seconds: 3),
+                    backgroundColor: Colors.orange,
+                  ).show(context);
+                }
+              })
+        ],
       ),
-      body:
-          BlocBuilder<BikeListCubit, BikeListState>(builder: (context, state) {
-        return state.maybeWhen(
-          orElse: () => Container(),
-          loading: () => Center(
-            child: CircularProgressIndicator(),
-          ),
-          noData: () => NoData(
-              message: translator.translate('no_bikes'),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/white-waves.png'), fit: BoxFit.cover),
+        ),
+        child: BlocBuilder<BikeListCubit, BikeListState>(
+            builder: (context, state) {
+          return state.maybeWhen(
+            orElse: () => Container(),
+            loading: () => Center(
+              child: CircularProgressIndicator(),
+            ),
+            noData: () => NoData(
+                message: translator.translate('no_bikes'),
+                onClick: () {
+                  final bikeListCubit = context.read<BikeListCubit>();
+                  bikeListCubit.loadBikes();
+                }),
+            failure: (message) => FailureWidget(
+              message: message,
               onClick: () {
                 final bikeListCubit = context.read<BikeListCubit>();
                 bikeListCubit.loadBikes();
-              }),
-          failure: (message) => FailureWidget(
-            message: message,
-            onClick: () {
-              final bikeListCubit = context.read<BikeListCubit>();
-              bikeListCubit.loadBikes();
-            },
-          ),
-          loaded: (bikes) => SafeArea(
-              // child: SingleChildScrollView(
-
-            child: BlocListener<RentCubit, RentState>(
-            listener: (context, state) {
-              state.maybeWhen(
-                  orElse: () => customProgressDialog.dismiss(),
-                  renting: () => customProgressDialog.show(),
-                  failure: (message) {
-                    Flushbar(
-                      title: translator.translate('error'),
-                      message: translator.translate(message),
-                      icon: Icon(Icons.error_outline, color: Colors.white),
-                      backgroundColor: Colors.red,
-                      duration: Duration(seconds: 3),
-                    )
-                        .show(context)
-                        .then((value) => customProgressDialog.dismiss());
-                  },
-                  success: (bike) {
-                  
-                    Flushbar(
-                      title: translator.translate('success'),
-                      message: translator.translate('rental_success'),
-                      icon: Icon(Icons.check, color: Colors.white),
-                      backgroundColor: Colors.green,
-                      duration: Duration(seconds: 3),
-                    ).show(context).then((_) {
-                      customProgressDialog.dismiss();
-                      // reload the page to show updated list
-                      // this avoids showing false number of bikes
-                      context.read<BikeListCubit>().loadBikes();
-                    });
-                  });
-            },
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                final bike = bikes[index];
-                print(bike.photo.first.url);
-                return _bikeCard(
-                    bike: bike,
-                    color: index % 2 == 0
-                        ? ThemeColors.grey_40 
-                        : ThemeColors.primaryLight,
-                    context: context);
               },
-              itemCount: bikes.length,
             ),
-          )),
-        );
-      }),
+            loaded: (bikes) => SafeArea(
+                // child: SingleChildScrollView(
+
+                child: BlocListener<RentCubit, RentState>(
+              listener: (context, state) {
+                state.maybeWhen(
+                    orElse: () => customProgressDialog.dismiss(),
+                    renting: () => customProgressDialog.show(),
+                    failure: (message) {
+                      Flushbar(
+                        title: translator.translate('error'),
+                        message: translator.translate(message),
+                        icon: Icon(Icons.error_outline, color: Colors.white),
+                        backgroundColor: Colors.red,
+                        duration: Duration(seconds: 3),
+                      )
+                          .show(context)
+                          .then((value) => customProgressDialog.dismiss());
+                    },
+                    success: (bike) {
+                      Flushbar(
+                        title: translator.translate('success'),
+                        message: translator.translate('rental_success'),
+                        icon: Icon(Icons.check, color: Colors.white),
+                        backgroundColor: Colors.green,
+                        duration: Duration(seconds: 3),
+                      ).show(context).then((_) {
+                        customProgressDialog.dismiss();
+                        // reload the page to show updated list
+                        // this avoids showing false number of bikes
+                        context.read<BikeListCubit>().loadBikes();
+                        ExtendedNavigator.of(context).push(Routes.rentedList);
+                      });
+                    });
+              },
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  final bike = bikes[index];
+                  print(bike.photo.first.url);
+                  return _bikeCard(
+                      bike: bike,
+                      color: index % 2 == 0
+                          ? ThemeColors.grey_40
+                          : ThemeColors.primaryLight,
+                      context: context);
+                },
+                itemCount: bikes.length,
+              ),
+            )),
+          );
+        }),
+      ),
     );
   }
 
@@ -136,7 +170,8 @@ class _BikeListPageState extends State<BikeListPage> {
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         decoration: BoxDecoration(
-            color: color, borderRadius: BorderRadius.circular(50)),
+            color: color.withOpacity(0.7),
+            borderRadius: BorderRadius.circular(50)),
         height: 400,
         width: double.infinity,
         child: Column(

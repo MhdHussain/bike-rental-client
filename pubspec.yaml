@@ -80,6 +80,7 @@ flutter:
     - assets/car4.jpg
     - assets/car5.jpg
     - assets/car6.jpg
+    - assets/white-waves.png
 
     - lang/en.json
     - lang/ar.json
